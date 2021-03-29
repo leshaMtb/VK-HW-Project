@@ -12,106 +12,35 @@ class ProfileHeaderView: UIView {
  
         //аватарка собаки
     let profileImage: UIImageView = {
-        let pi = UIImageView()
-        pi.contentMode = .scaleAspectFit
-        pi.image = #imageLiteral(resourceName: "dog")
-        pi.clipsToBounds = true
+        let profileImage = UIImageView()
+        profileImage.contentMode = .scaleAspectFit
+        profileImage.image = #imageLiteral(resourceName: "dog")
+        profileImage.clipsToBounds = true
     
-        return pi
+        profileImage.layer.cornerRadius = 50
+        profileImage.layer.borderWidth = 3
+        profileImage.layer.borderColor = UIColor.white.cgColor
+        return profileImage
     }()
     
        //лейбл для статуса
     let statusLabel: UILabel = {
-        let sl = UILabel()
-        sl.font = UIFont.systemFont(ofSize: 14, weight: .regular)
-        sl.textAlignment = .left
-        sl.textColor = .gray
-        sl.text = "Im good boy..."
+        let statusLabel = UILabel()
+        statusLabel.font = UIFont.systemFont(ofSize: 14, weight: .regular)
+        statusLabel.textAlignment = .left
+        statusLabel.textColor = .gray
+        statusLabel.text = "Im good boy..."
     
-        return sl
+        return statusLabel
     }()
     
       //кнопка
     let button: UIButton = {
-        let bttn = UIButton()
-        bttn.setTitle("Show status", for: .normal)
-        bttn.tintColor = .white
-        bttn.backgroundColor = .systemBlue
-        bttn.addTarget(self, action: #selector(buttonPressed), for: .touchUpInside)
-        return bttn
-    }()
-    
-    
-    // лейбл сверху
-    let userNamelabel: UILabel = {
-        let unl = UILabel()
-        unl.font = UIFont.systemFont(ofSize: CGFloat(18), weight: .bold)
-        unl.textAlignment = .left
-        unl.textColor = .black
-        unl.text = "Senior Dog"
-       
-        return unl
-    }()
-    
-    //textfield
-    let textFieldForStatus: UITextField = {
-        let txt = UITextField()
-        txt.placeholder = "Set status:"
-        txt.backgroundColor = .white
-        txt.addTarget(self, action: #selector(changeTextField), for: .editingChanged)
-        txt.leftView  = UIView(frame: CGRect(x: 0, y: 0, width: 10, height: txt.frame.height))
-        txt.leftViewMode = .always
-        return txt
-    }()
-        
-                                                     
-
-    public override init(frame: CGRect) {
-        super.init(frame: CGRect())
-        
-        backgroundColor = .lightGray
-     
-        //ФРЕЙМЫ:
-        
-        //фрейм для аватарки
-        profileImage.frame = CGRect(
-            x: CGFloat(16),
-            y: CGFloat(16) ,
-            width: CGFloat(100),
-            height: CGFloat(100))
-        
-        //фрейм для лейбла юзернэймлэйбл
-        userNamelabel.frame = CGRect(
-            x: CGFloat(profileImage.frame.maxX + 16),
-            y: CGFloat(27),
-            width: CGFloat(UIScreen.main.bounds.width - 32) - CGFloat(profileImage.frame.maxX + 16),
-            height: CGFloat(18))
-        
-        //фрейм для статуса
-        statusLabel.frame = CGRect(
-            x: CGFloat(profileImage.frame.maxX + 16),
-            y: CGFloat(profileImage.frame.maxY - 32),
-            width: CGFloat(UIScreen.main.bounds.width - 32) - CGFloat(profileImage.frame.maxX + 16),
-            height: CGFloat(14))
-        
-        //текстфилд
-        textFieldForStatus.frame = CGRect(
-            x: CGFloat(profileImage.frame.width + 32),
-            y: CGFloat(statusLabel.frame.maxY + 16),
-            width: CGFloat(UIScreen.main.bounds.width - profileImage.frame.width - 48),
-            height: CGFloat(40))
-        
-        //для кнопки
-        button.frame = CGRect(
-            x: CGFloat(16),
-            y: CGFloat(textFieldForStatus.frame.maxY + 16),
-            width: CGFloat(UIScreen.main.bounds.width - 32),
-            height: CGFloat(50))
-        
-        //работа с CALayer
-        profileImage.layer.cornerRadius = profileImage.frame.width / 2
-        profileImage.layer.borderWidth = 3
-        profileImage.layer.borderColor = UIColor.white.cgColor
+        let button = UIButton()
+        button.setTitle("Show status", for: .normal)
+        button.tintColor = .white
+        button.backgroundColor = .systemBlue
+        button.addTarget(self, action: #selector(buttonPressed), for: .touchUpInside)
         
         button.layer.cornerRadius = 4
         button.layer.shadowRadius = 4
@@ -119,20 +48,90 @@ class ProfileHeaderView: UIView {
         button.layer.shadowColor = UIColor.black.cgColor
         button.layer.shadowOpacity = 0.7
         
+        return button
+    }()
+    
+    
+    // лейбл сверху
+    let userNamelabel: UILabel = {
+        let userNameLabel = UILabel()
+        userNameLabel.font = UIFont.systemFont(ofSize: CGFloat(18), weight: .bold)
+        userNameLabel.textAlignment = .left
+        userNameLabel.textColor = .black
+        userNameLabel.text = "Junior Dog"
+        
+        return userNameLabel
+    }()
+    
+    //textfield
+    let textFieldForStatus: UITextField = {
+        let textFieldForStatus = UITextField()
+        textFieldForStatus.placeholder = "Set status:"
+        textFieldForStatus.backgroundColor = .white
+        textFieldForStatus.addTarget(self, action: #selector(changeTextField), for: .editingChanged)
+        textFieldForStatus.leftView  = UIView(frame: CGRect(x: 0, y: 0, width: 10, height: textFieldForStatus.frame.height))
+        textFieldForStatus.leftViewMode = .always
+        
         textFieldForStatus.layer.cornerRadius = 12
         textFieldForStatus.layer.borderWidth = 1
         textFieldForStatus.layer.borderColor = UIColor.black.cgColor
         
+        return textFieldForStatus
+    }()
+    
+   private let defaultInset = 16
+    
+    override func layoutSubviews() {
         
+        //фрейм для аватарки
+        profileImage.frame = CGRect(
+            x: CGFloat(defaultInset),
+            y: CGFloat(defaultInset) ,
+            width: CGFloat(100),
+            height: CGFloat(100))
+        
+        //фрейм для лейбла юзернэймлэйбл
+        userNamelabel.frame = CGRect(
+            x: profileImage.frame.maxX + CGFloat(defaultInset),
+            y: CGFloat(27),
+            width: CGFloat(self.frame.width - profileImage.frame.width - CGFloat(defaultInset * 3)),
+            height: CGFloat(18))
+        
+        //фрейм для статуса
+        statusLabel.frame = CGRect(
+            x: CGFloat(profileImage.frame.maxX + CGFloat(defaultInset)),
+            y: CGFloat(profileImage.frame.maxY - CGFloat(defaultInset * 2)),
+            width: self.frame.width - profileImage.frame.width - CGFloat(defaultInset * 3),
+            height: CGFloat(14))
+        
+        //текстфилд
+        textFieldForStatus.frame = CGRect(
+            x: CGFloat(profileImage.frame.width + CGFloat(defaultInset * 2)),
+            y: CGFloat(statusLabel.frame.maxY + CGFloat(defaultInset)),
+            width: self.frame.width - profileImage.frame.width - CGFloat(defaultInset * 3),
+            height: CGFloat(40))
+        
+        //для кнопки
+        button.frame = CGRect(
+            x: CGFloat(defaultInset),
+            y: CGFloat(textFieldForStatus.frame.maxY + CGFloat(defaultInset)),
+            width: CGFloat(self.frame.width - CGFloat(defaultInset * 2)),
+            height: CGFloat(50))
+        
+    }
+
+    public override init(frame: CGRect) {
+        super.init(frame: CGRect())
+        
+        backgroundColor = .lightGray
+
         //добавление на экран
         addSubview(profileImage)
         addSubview(button)
         addSubview(userNamelabel)
         addSubview(statusLabel)
         addSubview(textFieldForStatus)
-            
     }
-    
     
     var boofer: String?
     
@@ -148,8 +147,6 @@ class ProfileHeaderView: UIView {
         textFieldForStatus.text = ""
         textFieldForStatus.endEditing(true)
     }
-    
-
     
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")

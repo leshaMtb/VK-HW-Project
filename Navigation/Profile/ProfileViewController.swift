@@ -10,34 +10,24 @@ import UIKit
 
 class ProfileViewController: UIViewController {
     
+        let profileHeaderView = ProfileHeaderView()
     
-
     override func viewDidLoad() {
         super.viewDidLoad()
-      // print( self.navigationController?.navigationBar.frame.height)
-      
+        
+        view.backgroundColor = .lightGray
+        view.addSubview(profileHeaderView)
     }
     
 
-    override func viewWillLayoutSubviews() {
-        super .viewWillLayoutSubviews()
-      
-  
-        let profileHeaderView = ProfileHeaderView()
-
-        profileHeaderView.frame = CGRect(x: 0,
-                                         y: view.safeAreaInsets.top,
-                                         width: view.frame.width,
-                                         height: view.frame.height - view.safeAreaInsets.top - (navigationController?.navigationBar.frame.height)! )
+    override func viewDidLayoutSubviews() {
+        super .viewDidLayoutSubviews()
         
-
-        view.addSubview(profileHeaderView)
-        
-        
-        
-        
-        
-    //  print(view.safeAreaInsets.top)
+        profileHeaderView.frame = CGRect(
+            x: view.safeAreaInsets.left,
+            y: view.safeAreaInsets.top,
+            width: view.bounds.width - view.safeAreaInsets.left - view.safeAreaInsets.right,
+            height: view.frame.height)
 
     }
     
