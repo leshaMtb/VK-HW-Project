@@ -10,26 +10,33 @@ import UIKit
 
 class ProfileViewController: UIViewController {
     
-        let profileHeaderView = ProfileHeaderView()
+    private lazy var newButton: UIButton  = {
+        let newButton = UIButton()
+        newButton.setTitle("Tap Me", for: .normal)
+        newButton.setTitleColor(.init(white: CGFloat(1), alpha: CGFloat(0.6)), for: .highlighted)
+        newButton.backgroundColor = .systemBlue
+        return newButton
+    }()
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-        view.backgroundColor = .lightGray
-        view.addSubview(profileHeaderView)
+        self.view.backgroundColor = .lightGray
+        self.view.addSubview(newButton)
+        self.newButton.translatesAutoresizingMaskIntoConstraints = false
     }
     
-
+    
     override func viewDidLayoutSubviews() {
         super .viewDidLayoutSubviews()
         
-        profileHeaderView.frame = CGRect(
-            x: view.safeAreaInsets.left,
-            y: view.safeAreaInsets.top,
-            width: view.bounds.width - view.safeAreaInsets.left - view.safeAreaInsets.right,
-            height: view.frame.height)
-
+        NSLayoutConstraint.activate([
+            self.newButton.centerXAnchor.constraint(equalTo: self.view.centerXAnchor),
+            self.newButton.bottomAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.bottomAnchor, constant: CGFloat(0)),
+            self.newButton.leftAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.leftAnchor, constant: CGFloat(0)),
+            self.newButton.rightAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.rightAnchor, constant: CGFloat(0))
+        ])
     }
+    
     
 }
 
