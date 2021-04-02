@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="17701" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="VVa-ty-c3K">
-    <device id="retina3_5" orientation="portrait" appearance="light"/>
+    <device id="retina6_1" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="17703"/>
@@ -9,16 +9,40 @@
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
+        <!--Log In View Controller-->
+        <scene sceneID="uxQ-sa-oeR">
+            <objects>
+                <viewController id="Eho-dD-S1B" customClass="LogInViewController" customModule="Navigation" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="Xja-lR-plc">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <viewLayoutGuide key="safeArea" id="gcq-xv-KAC"/>
+                        <color key="backgroundColor" systemColor="systemIndigoColor"/>
+                    </view>
+                    <navigationItem key="navigationItem" id="ofL-TC-COy">
+                        <barButtonItem key="rightBarButtonItem" title="Item" id="kr1-zf-G3w">
+                            <connections>
+                                <segue destination="Ca1-kw-dKJ" kind="show" id="Fko-31-pHP"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
+                    <value key="contentSizeForViewInPopover" type="size" width="1000" height="1200"/>
+                    <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="99I-hC-9Gq" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="894" y="239"/>
+        </scene>
         <!--Profile-->
         <scene sceneID="bRX-aC-Cpi">
             <objects>
-                <viewController id="Ca1-kw-dKJ" customClass="ProfileViewController" customModule="Navigation" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="profile" id="Ca1-kw-dKJ" customClass="ProfileViewController" customModule="Navigation" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="z6I-Co-0n3">
-                        <rect key="frame" x="0.0" y="0.0" width="320" height="480"/>
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" flexibleMinX="YES" widthSizable="YES" flexibleMaxX="YES" flexibleMinY="YES" heightSizable="YES" flexibleMaxY="YES"/>
                         <subviews>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="gai-RR-5Zn" customClass="ProfileHeaderView" customModule="Navigation" customModuleProvider="target">
-                                <rect key="frame" x="0.0" y="44" width="320" height="220"/>
+                                <rect key="frame" x="0.0" y="88" width="414" height="220"/>
                                 <subviews>
                                     <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="e4o-yr-sEj">
                                         <rect key="frame" x="16" y="16" width="100" height="100"/>
@@ -28,7 +52,7 @@
                                         </constraints>
                                     </imageView>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="dZA-kF-Efs">
-                                        <rect key="frame" x="132" y="27" width="172" height="18"/>
+                                        <rect key="frame" x="132" y="27" width="266" height="18"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="18" id="VAA-FX-v5e"/>
                                             <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="18" id="aQO-B7-uEn"/>
@@ -38,7 +62,7 @@
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="nuZ-Rf-uTw">
-                                        <rect key="frame" x="132" y="81" width="172" height="14"/>
+                                        <rect key="frame" x="132" y="81" width="266" height="14"/>
                                         <color key="backgroundColor" red="0.51848936080932617" green="1" blue="0.003157665953040123" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="14" id="KfA-V9-09h"/>
@@ -48,7 +72,7 @@
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="WrD-yP-0Y5">
-                                        <rect key="frame" x="132" y="111" width="172" height="40"/>
+                                        <rect key="frame" x="132" y="111" width="266" height="40"/>
                                         <color key="backgroundColor" red="0.92685103416442871" green="0.8955504298210144" blue="0.63588911294937134" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="40" id="ILy-sy-Yqm"/>
@@ -66,7 +90,7 @@
                                         </connections>
                                     </textField>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="b8L-xI-fEA" userLabel="status Label New">
-                                        <rect key="frame" x="16" y="167" width="288" height="50"/>
+                                        <rect key="frame" x="16" y="167" width="382" height="50"/>
                                         <color key="backgroundColor" red="0.21153843402862549" green="0.23336637020111084" blue="0.056806214153766632" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         <constraints>
                                             <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="50" id="3zP-gB-oEj"/>
@@ -121,7 +145,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="ZwS-K6-ZGq" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="765.60000000000002" y="194.33497536945814"/>
+            <point key="canvasLocation" x="1970" y="197"/>
         </scene>
         <!--Feed-->
         <scene sceneID="pR1-4r-6ob">
@@ -129,7 +153,7 @@
                 <navigationController id="vyo-r6-qwt" sceneMemberID="viewController">
                     <tabBarItem key="tabBarItem" title="Feed" image="house.fill" catalog="system" id="0HN-zR-0uF"/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="jwt-CW-Jdi">
-                        <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
+                        <rect key="frame" x="0.0" y="44" width="414" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
                     <connections>
@@ -145,11 +169,11 @@
             <objects>
                 <viewController id="UOy-8g-tjm" customClass="FeedViewController" customModule="Navigation" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="hnQ-fB-PJI">
-                        <rect key="frame" x="0.0" y="0.0" width="320" height="480"/>
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <stackView opaque="NO" contentMode="scaleToFill" distribution="equalCentering" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="SZq-bS-3Ri">
-                                <rect key="frame" x="113" y="225" width="94" height="30"/>
+                                <rect key="frame" x="160" y="433" width="94" height="30"/>
                                 <subviews>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="9ru-89-vrk">
                                         <rect key="frame" x="0.0" y="0.0" width="42" height="30"/>
@@ -188,7 +212,7 @@
             <objects>
                 <viewController id="Gpo-I4-SnC" customClass="PostViewController" customModule="Navigation" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="NJr-hs-eEz">
-                        <rect key="frame" x="0.0" y="0.0" width="320" height="480"/>
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <viewLayoutGuide key="safeArea" id="qcf-0q-WgP"/>
                         <color key="backgroundColor" systemColor="systemPinkColor"/>
@@ -210,11 +234,11 @@
             <objects>
                 <viewController id="A8n-Iq-F5E" customClass="InfoViewController" customModule="Navigation" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="CyQ-kq-0CI">
-                        <rect key="frame" x="0.0" y="0.0" width="320" height="460"/>
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="842"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="7My-cB-a4g">
-                                <rect key="frame" x="123.5" y="215" width="73" height="30"/>
+                                <rect key="frame" x="170.5" y="406" width="73" height="30"/>
                                 <state key="normal" title="Show alert"/>
                                 <connections>
                                     <action selector="showAlert:" destination="A8n-Iq-F5E" eventType="touchUpInside" id="YPe-Ts-Bhu"/>
@@ -258,12 +282,12 @@
                     <tabBarItem key="tabBarItem" title="Profile" image="person.fill" catalog="system" id="SyK-iK-f7q"/>
                     <toolbarItems/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="hZv-O1-ero">
-                        <rect key="frame" x="0.0" y="0.0" width="320" height="50"/>
+                        <rect key="frame" x="0.0" y="44" width="414" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
                     <nil name="viewControllers"/>
                     <connections>
-                        <segue destination="Ca1-kw-dKJ" kind="relationship" relationship="rootViewController" id="C4e-di-tzg"/>
+                        <segue destination="Eho-dD-S1B" kind="relationship" relationship="rootViewController" id="aJb-yL-MjS"/>
                     </connections>
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Y8b-38-THj" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
@@ -279,6 +303,9 @@
         <image name="person.fill" catalog="system" width="128" height="120"/>
         <systemColor name="systemGreenColor">
             <color red="0.20392156862745098" green="0.7803921568627451" blue="0.34901960784313724" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </systemColor>
+        <systemColor name="systemIndigoColor">
+            <color red="0.34509803921568627" green="0.33725490196078434" blue="0.83921568627450982" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </systemColor>
         <systemColor name="systemPinkColor">
             <color red="1" green="0.17647058823529413" blue="0.33333333333333331" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>

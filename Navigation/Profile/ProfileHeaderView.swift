@@ -89,6 +89,7 @@ class ProfileHeaderView: UIView {
         super .layoutSubviews()
        self.backgroundColor = .lightGray
         
+        
     }
 }
 

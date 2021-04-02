@@ -15,6 +15,7 @@ class ProfileViewController: UIViewController {
         newButton.setTitle("Tap Me", for: .normal)
         newButton.setTitleColor(.init(white: CGFloat(1), alpha: CGFloat(0.6)), for: .highlighted)
         newButton.backgroundColor = .systemBlue
+        
         return newButton
     }()
     
@@ -22,6 +23,7 @@ class ProfileViewController: UIViewController {
         super.viewDidLoad()
         self.view.backgroundColor = .lightGray
         self.view.addSubview(newButton)
+       // navigationController?.navigationBar.isHidden = false
         self.newButton.translatesAutoresizingMaskIntoConstraints = false
     }
     
