@@ -9,21 +9,25 @@
 import UIKit
 
 class LogInViewController: UIViewController {
-  
+    
     private let scrollView: UIScrollView = {
         let scrollView = UIScrollView()
-        
-        scrollView.contentInset.bottom = 100
+        scrollView.translatesAutoresizingMaskIntoConstraints = false
         return scrollView
     }()
     
-    private let viewOnScroll = UIView()
-
+    private let viewOnScroll: UIView = {
+        let viewOnScroll = UIView()
+        viewOnScroll.translatesAutoresizingMaskIntoConstraints = false
+        return viewOnScroll
+    }()
+    
     private let imageView: UIImageView = {
-     let imageView = UIImageView()
+        let imageView = UIImageView()
         imageView.contentMode = .scaleAspectFit
         imageView.image = #imageLiteral(resourceName: "logo")
         imageView.clipsToBounds = true
+        imageView.translatesAutoresizingMaskIntoConstraints = false
         return imageView
     }()
     
@@ -33,14 +37,14 @@ class LogInViewController: UIViewController {
         bigViewForLogIn.layer.cornerRadius = 10
         bigViewForLogIn.layer.borderWidth = 0.5
         bigViewForLogIn.layer.borderColor = UIColor.lightGray.cgColor
-        
+        bigViewForLogIn.translatesAutoresizingMaskIntoConstraints = false
         return bigViewForLogIn
     }()
     
     private let separatorViewForLogin: UIView = {
         let separatorViewForLogin = UIView()
         separatorViewForLogin.backgroundColor = .lightGray
-        
+        separatorViewForLogin.translatesAutoresizingMaskIntoConstraints = false
         return separatorViewForLogin
     }()
     
@@ -49,18 +53,18 @@ class LogInViewController: UIViewController {
         emailTextField.textColor = .black
         emailTextField.font = UIFont.systemFont(ofSize: CGFloat(16))
         emailTextField.placeholder = "E-mail / Phone number"
-        
+        emailTextField.translatesAutoresizingMaskIntoConstraints = false
         return emailTextField
     }()
     
     private let passwordTextField: UITextField = {
-       
         let passwordTextField = UITextField()
         passwordTextField.textColor = .black
         passwordTextField.font = UIFont.systemFont(ofSize: CGFloat(16))
         passwordTextField.placeholder = "Password"
         passwordTextField.autocapitalizationType = .none
         passwordTextField.isSecureTextEntry = true
+        passwordTextField.translatesAutoresizingMaskIntoConstraints = false
         return passwordTextField
     }()
     
@@ -71,40 +75,14 @@ class LogInViewController: UIViewController {
         logInButton.setTitle("Log in", for: .normal)
         logInButton.clipsToBounds = true
         logInButton.layer.cornerRadius = 10
-        
-        
+        logInButton.translatesAutoresizingMaskIntoConstraints = false
         return logInButton
     }()
     
-    override func viewDidLoad() {
-        super .viewDidLoad()
-        self.navigationController?.navigationBar.isHidden = true
-        self.view.backgroundColor = .white
-        
-        //тут добавляю сабвью
-        view.addSubview(scrollView)
-        scrollView.addSubview(viewOnScroll)
-        viewOnScroll.addSubview(imageView)
-        viewOnScroll.addSubview(bigViewForLogIn)
-        viewOnScroll.addSubview(separatorViewForLogin)
-        viewOnScroll.addSubview(emailTextField)
-        viewOnScroll.addSubview(passwordTextField)
-        viewOnScroll.addSubview(logInButton)
-        logInButton.addTarget(self, action: #selector(showProfileViewController), for: .touchUpInside)
-    }
-    
-    @objc private func showProfileViewController() {
-        
-        emailTextField.endEditing(true)
-        passwordTextField.endEditing(true)
-        
-       let storybord = UIStoryboard(name: "Main", bundle: nil)
-        let vc = storybord.instantiateViewController(withIdentifier: "profile")
-        show(vc, sender: (Any).self)
-    }
     
     
     // MARK: Keyboard notifications это скопированный блок кода
+    
     //---------------------------------------------------------------------------------
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
@@ -119,72 +97,94 @@ class LogInViewController: UIViewController {
         NotificationCenter.default.removeObserver(self, name: UIResponder.keyboardWillShowNotification, object: nil)
         NotificationCenter.default.removeObserver(self, name: UIResponder.keyboardWillHideNotification, object: nil)
     }
-
+    
     // MARK: Actions
     @objc fileprivate func keyboardWillShow(notification: NSNotification) {
         if let keyboardSize = (notification.userInfo?[UIResponder.keyboardFrameEndUserInfoKey] as? NSValue)?.cgRectValue {
             
-           // scrollView.contentInset.bottom = keyboardSize.height
-          //  scrollView.verticalScrollIndicatorInsets = UIEdgeInsets(top: 0, left: 0, bottom: keyboardSize.height, right: 0)
-            scrollView.contentOffset = CGPoint(x: 0, y: keyboardSize.height)
+            // scroll.contentInset.bottom = keyboardSize.height
+            scrollView.verticalScrollIndicatorInsets = UIEdgeInsets(top: 0, left: 0, bottom: keyboardSize.height, right: 0)
+            //scrollView.contentOffset = CGPoint(x: 0, y: keyboardSize.height)
+            scrollView.contentInset.bottom = keyboardSize.height
         }
     }
     
     @objc fileprivate func keyboardWillHide(notification: NSNotification) {
-      //  scrollView.contentInset.bottom = .zero
+        scrollView.contentInset.bottom = .zero
         scrollView.verticalScrollIndicatorInsets = .zero
     }
-//---------------------------------------------------------------------------------
     
+    override func viewDidLoad() {
+        super .viewDidLoad()
+        
+        self.navigationController?.navigationBar.isHidden = true
+        self.view.backgroundColor = .white
+        
+        view.addSubview(scrollView)
+        scrollView.addSubview(viewOnScroll)
+        viewOnScroll.addSubview(imageView)
+        viewOnScroll.addSubview(bigViewForLogIn)
+        viewOnScroll.addSubview(separatorViewForLogin)
+        viewOnScroll.addSubview(emailTextField)
+        viewOnScroll.addSubview(passwordTextField)
+        viewOnScroll.addSubview(logInButton)
+        logInButton.addTarget(self, action: #selector(showProfileViewController), for: .touchUpInside)
+        let defaultInset = 16
+        
+        //активирую констрейнт лэйоут
+        NSLayoutConstraint.activate([
+            scrollView.topAnchor.constraint(equalTo: view.topAnchor),
+            scrollView.rightAnchor.constraint(equalTo: view.rightAnchor),
+            scrollView.leftAnchor.constraint(equalTo: view.leftAnchor),
+            scrollView.bottomAnchor.constraint(equalTo: view.bottomAnchor),
+            
+            viewOnScroll.topAnchor.constraint(equalTo: scrollView.topAnchor),
+            viewOnScroll.rightAnchor.constraint(equalTo: scrollView.rightAnchor),
+            viewOnScroll.leftAnchor.constraint(equalTo: scrollView.leftAnchor),
+            viewOnScroll.bottomAnchor.constraint(equalTo: scrollView.bottomAnchor),
+            viewOnScroll.widthAnchor.constraint(equalTo: scrollView.widthAnchor),
+            
+            imageView.topAnchor.constraint(equalTo: viewOnScroll.topAnchor, constant: CGFloat(120)),
+            imageView.centerXAnchor.constraint(equalTo: viewOnScroll.centerXAnchor),
+            imageView.widthAnchor.constraint(equalToConstant: CGFloat(100)),
+            imageView.heightAnchor.constraint(equalToConstant: CGFloat(100)),
+            
+            bigViewForLogIn.topAnchor.constraint(equalTo: imageView.bottomAnchor, constant: CGFloat(120)),
+            bigViewForLogIn.heightAnchor.constraint(equalToConstant: CGFloat(100)),
+            bigViewForLogIn.rightAnchor.constraint(equalTo: viewOnScroll.rightAnchor, constant: CGFloat(-defaultInset)),
+            bigViewForLogIn.leftAnchor.constraint(equalTo: viewOnScroll.leftAnchor, constant: CGFloat(defaultInset)),
+            
+            separatorViewForLogin.topAnchor.constraint(equalTo: bigViewForLogIn.topAnchor, constant: CGFloat(50)),
+            separatorViewForLogin.heightAnchor.constraint(equalToConstant: CGFloat(0.5)),
+            separatorViewForLogin.rightAnchor.constraint(equalTo: viewOnScroll.rightAnchor, constant: CGFloat(-16)),
+            separatorViewForLogin.leftAnchor.constraint(equalTo: viewOnScroll.leftAnchor, constant: CGFloat(defaultInset)),
+            
+            emailTextField.topAnchor.constraint(equalTo: bigViewForLogIn.topAnchor, constant: CGFloat(17)),
+            emailTextField.leftAnchor.constraint(equalTo: viewOnScroll.leftAnchor, constant: CGFloat(defaultInset + 10)),
+            emailTextField.rightAnchor.constraint(equalTo: viewOnScroll.rightAnchor, constant: CGFloat(-26)),
+            emailTextField.heightAnchor.constraint(equalToConstant: CGFloat(defaultInset)),
+            
+            passwordTextField.topAnchor.constraint(equalTo: bigViewForLogIn.topAnchor, constant: CGFloat(67)),
+            passwordTextField.leftAnchor.constraint(equalTo: viewOnScroll.leftAnchor, constant: CGFloat(defaultInset + 10)),
+            passwordTextField.rightAnchor.constraint(equalTo: viewOnScroll.rightAnchor, constant: CGFloat(-26)),
+            passwordTextField.heightAnchor.constraint(equalToConstant: CGFloat(defaultInset)),
+            
+            logInButton.topAnchor.constraint(equalTo: bigViewForLogIn.bottomAnchor, constant: CGFloat(defaultInset)),
+            logInButton.heightAnchor.constraint(equalToConstant: CGFloat(50)),
+            logInButton.leftAnchor.constraint(equalTo: viewOnScroll.leftAnchor, constant: CGFloat(defaultInset)),
+            logInButton.rightAnchor.constraint(equalTo: viewOnScroll.rightAnchor, constant: CGFloat(-defaultInset)),
+            logInButton.bottomAnchor.constraint(equalTo: viewOnScroll.bottomAnchor)
+        ])
+    }
     
-    override func viewDidLayoutSubviews() {
-        super.viewDidLayoutSubviews()
-        scrollView.frame = view.frame
-        viewOnScroll.frame = scrollView.frame
+    @objc private func showProfileViewController() {
         
-       let defaultInset = 16
+        emailTextField.endEditing(true)
+        passwordTextField.endEditing(true)
         
-        imageView.frame = CGRect(
-            x: CGFloat(viewOnScroll.frame.width / 2 - 50),
-            y: CGFloat(120),
-            width: CGFloat(100),
-            height: CGFloat(100))
-        
-        bigViewForLogIn.frame = CGRect(
-            x: CGFloat(defaultInset),
-            y: CGFloat(imageView.frame.maxY + 120),
-            width: CGFloat(viewOnScroll.frame.width - 32),
-            height: CGFloat(100))
-        
-        separatorViewForLogin.frame = CGRect(
-            x: CGFloat(defaultInset),
-            y: CGFloat(bigViewForLogIn.frame.midY),
-            width: CGFloat(viewOnScroll.frame.width - CGFloat(defaultInset * 2)),
-            height: CGFloat(0.5))
-        
-        emailTextField.frame = CGRect(
-            x: CGFloat(defaultInset + 10),
-            y: CGFloat(bigViewForLogIn.frame.minY + 17),
-            width: CGFloat(bigViewForLogIn.frame.width - 20),
-            height: CGFloat(defaultInset))
-        
-        
-       passwordTextField.frame = CGRect (
-            x: CGFloat(defaultInset + 10),
-        y: CGFloat(separatorViewForLogin.frame.maxY + 17),
-            width: CGFloat(emailTextField.frame.width),
-            height: CGFloat(defaultInset))
-         
-        
-        logInButton.frame = CGRect(
-            x: CGFloat(defaultInset),
-            y: CGFloat(bigViewForLogIn.frame.maxY + CGFloat(defaultInset)),
-            width: CGFloat(bigViewForLogIn.frame.width),
-            height: CGFloat(50))
-        
-      }
+        let storybord = UIStoryboard(name: "Main", bundle: nil)
+        let vc = storybord.instantiateViewController(withIdentifier: "profile")
+        show(vc, sender: (Any).self)
+    }
+    
 }
-
-
-
-

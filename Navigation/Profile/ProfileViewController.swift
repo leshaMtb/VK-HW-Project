@@ -9,37 +9,74 @@
 import UIKit
 
 class ProfileViewController: UIViewController {
-    
-    private lazy var newButton: UIButton  = {
-        let newButton = UIButton()
-        newButton.setTitle("Tap Me", for: .normal)
-        newButton.setTitleColor(.init(white: CGFloat(1), alpha: CGFloat(0.6)), for: .highlighted)
-        newButton.backgroundColor = .systemBlue
+
+    let reuseId = "cellId"
+    let tableView: UITableView = {
+        let tableView = UITableView()
         
-        return newButton
+        return tableView
     }()
+    
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        self.view.backgroundColor = .lightGray
-        self.view.addSubview(newButton)
-       // navigationController?.navigationBar.isHidden = false
-        self.newButton.translatesAutoresizingMaskIntoConstraints = false
-    }
-    
-    
-    override func viewDidLayoutSubviews() {
-        super .viewDidLayoutSubviews()
+        
+        view.addSubview(tableView)
+        
+        tableView.translatesAutoresizingMaskIntoConstraints = false
         
         NSLayoutConstraint.activate([
-            self.newButton.centerXAnchor.constraint(equalTo: self.view.centerXAnchor),
-            self.newButton.bottomAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.bottomAnchor, constant: CGFloat(0)),
-            self.newButton.leftAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.leftAnchor, constant: CGFloat(0)),
-            self.newButton.rightAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.rightAnchor, constant: CGFloat(0))
+            tableView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: CGFloat(0)),
+            tableView.rightAnchor.constraint(equalTo: view.safeAreaLayoutGuide.rightAnchor, constant: CGFloat(0)),
+            tableView.leftAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leftAnchor, constant: CGFloat(0)),
+            tableView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor, constant: CGFloat(0))
         ])
+        
+        
+        //????????
+        tableView.register(UITableViewCell.self, forCellReuseIdentifier: reuseId)
+        tableView.register(ProfileHeaderView.self, forHeaderFooterViewReuseIdentifier: String(describing: ProfileHeaderView.self))
+        tableView.dataSource = self
+        tableView.delegate = self
+        
     }
+    
     
     
 }
 
+
+
+extension ProfileViewController: UITableViewDataSource {
+    
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return Storage.arrayOfPosts.count
+    }
+    
+//ПРОБЛЕМА С ПЕРЕИСПОЛЬЗОВАНИЕМ ЯЧЕЕК!!!!!
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+       // let cell: PostTableViewCell = tableView.dequeueReusableCell(withIdentifier: String(describing: PostTableViewCell.self), for: indexPath) as! PostTableViewCell
+       let cell = PostTableViewCell()
+        cell.post = Storage.arrayOfPosts[indexPath.row]
+        return cell
+    }
+}
+
+
+
+extension ProfileViewController: UITableViewDelegate {
+    
+    func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
+        
+        guard let headerView: ProfileHeaderView = tableView.dequeueReusableHeaderFooterView(withIdentifier: String(describing: ProfileHeaderView.self)) as? ProfileHeaderView else { return nil }
+    print("ffffffffffffffffaaaaaaa")
+        return headerView
+    }
+    
+    func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
+        return 220.0
+    }
+    
+    
+}
 

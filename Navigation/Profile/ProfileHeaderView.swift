@@ -8,8 +8,7 @@
 
 import UIKit
 
-class ProfileHeaderView: UIView {
- 
+class ProfileHeaderView: UITableViewHeaderFooterView {
 
     @IBOutlet weak var fullName: UILabel! {
         didSet {
@@ -85,12 +84,17 @@ class ProfileHeaderView: UIView {
         statusTextField.text = ""
     }
     
+    
+
+    
     override func layoutSubviews() {
         super .layoutSubviews()
+        
        self.backgroundColor = .lightGray
-        
-        
+     
     }
+    
+  
 }
 
 

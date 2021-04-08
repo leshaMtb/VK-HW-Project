@@ -55,7 +55,6 @@
                                         <rect key="frame" x="132" y="27" width="266" height="18"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="18" id="VAA-FX-v5e"/>
-                                            <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="18" id="aQO-B7-uEn"/>
                                         </constraints>
                                         <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                         <nil key="textColor"/>
@@ -93,7 +92,6 @@
                                         <rect key="frame" x="16" y="167" width="382" height="50"/>
                                         <color key="backgroundColor" red="0.21153843402862549" green="0.23336637020111084" blue="0.056806214153766632" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         <constraints>
-                                            <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="50" id="3zP-gB-oEj"/>
                                             <constraint firstAttribute="height" constant="50" id="eqg-YX-vsE"/>
                                         </constraints>
                                         <state key="normal" title="Button"/>
@@ -108,18 +106,14 @@
                                     <constraint firstAttribute="height" constant="220" id="AQr-TW-nxE"/>
                                     <constraint firstItem="nuZ-Rf-uTw" firstAttribute="leading" secondItem="e4o-yr-sEj" secondAttribute="trailing" constant="16" id="B02-lC-MNw"/>
                                     <constraint firstItem="e4o-yr-sEj" firstAttribute="top" secondItem="gai-RR-5Zn" secondAttribute="top" constant="16" id="FH3-23-7UL"/>
-                                    <constraint firstItem="b8L-xI-fEA" firstAttribute="leading" secondItem="gai-RR-5Zn" secondAttribute="leading" constant="16" id="J3i-B1-8LV"/>
-                                    <constraint firstItem="b8L-xI-fEA" firstAttribute="top" secondItem="WrD-yP-0Y5" secondAttribute="bottom" constant="16" id="J8M-nY-4hy"/>
                                     <constraint firstItem="e4o-yr-sEj" firstAttribute="leading" secondItem="gai-RR-5Zn" secondAttribute="leading" constant="16" id="Kaa-aJ-sTp"/>
                                     <constraint firstItem="WrD-yP-0Y5" firstAttribute="top" secondItem="nuZ-Rf-uTw" secondAttribute="bottom" constant="16" id="N1z-a7-kPX"/>
                                     <constraint firstAttribute="trailing" secondItem="dZA-kF-Efs" secondAttribute="trailing" constant="16" id="X6d-UG-tiU"/>
-                                    <constraint firstAttribute="trailing" secondItem="dZA-kF-Efs" secondAttribute="trailing" constant="16" id="YQZ-jQ-HS4"/>
                                     <constraint firstItem="dZA-kF-Efs" firstAttribute="leading" secondItem="e4o-yr-sEj" secondAttribute="trailing" constant="16" id="aek-HX-uTu"/>
                                     <constraint firstItem="WrD-yP-0Y5" firstAttribute="leading" secondItem="gai-RR-5Zn" secondAttribute="leading" constant="132" id="bhh-AX-e0z"/>
                                     <constraint firstItem="dZA-kF-Efs" firstAttribute="top" secondItem="gai-RR-5Zn" secondAttribute="top" constant="27" id="eaB-8P-CeH"/>
                                     <constraint firstAttribute="trailing" secondItem="WrD-yP-0Y5" secondAttribute="trailing" constant="16" id="g2Q-Jn-j3k"/>
                                     <constraint firstItem="b8L-xI-fEA" firstAttribute="leading" secondItem="gai-RR-5Zn" secondAttribute="leading" constant="16" id="gke-fO-7nq"/>
-                                    <constraint firstItem="e4o-yr-sEj" firstAttribute="top" secondItem="gai-RR-5Zn" secondAttribute="top" constant="16" id="lSO-t9-ZMC"/>
                                     <constraint firstAttribute="trailing" secondItem="b8L-xI-fEA" secondAttribute="trailing" constant="16" id="liU-ee-0ws"/>
                                     <constraint firstItem="nuZ-Rf-uTw" firstAttribute="top" secondItem="dZA-kF-Efs" secondAttribute="bottom" constant="36" id="vOG-LI-atw"/>
                                 </constraints>
@@ -138,14 +132,13 @@
                             <constraint firstItem="gai-RR-5Zn" firstAttribute="top" secondItem="FCL-IZ-fe8" secondAttribute="top" id="5Np-eP-itH"/>
                             <constraint firstItem="gai-RR-5Zn" firstAttribute="leading" secondItem="FCL-IZ-fe8" secondAttribute="leading" id="9Vd-ar-LRl"/>
                             <constraint firstItem="FCL-IZ-fe8" firstAttribute="trailing" secondItem="gai-RR-5Zn" secondAttribute="trailing" id="KBs-dj-ZcL"/>
-                            <constraint firstItem="gai-RR-5Zn" firstAttribute="top" secondItem="FCL-IZ-fe8" secondAttribute="top" id="oSv-op-ALl"/>
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" title="Profile" id="TPi-FS-zh0"/>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="ZwS-K6-ZGq" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1970" y="197"/>
+            <point key="canvasLocation" x="1838" y="377"/>
         </scene>
         <!--Feed-->
         <scene sceneID="pR1-4r-6ob">
