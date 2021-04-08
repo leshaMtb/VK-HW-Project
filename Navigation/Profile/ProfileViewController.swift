@@ -9,14 +9,13 @@
 import UIKit
 
 class ProfileViewController: UIViewController {
-
+    
     let reuseId = "cellId"
     let tableView: UITableView = {
         let tableView = UITableView()
         
         return tableView
     }()
-    
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -32,51 +31,37 @@ class ProfileViewController: UIViewController {
             tableView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor, constant: CGFloat(0))
         ])
         
-        
-        //????????
-        tableView.register(UITableViewCell.self, forCellReuseIdentifier: reuseId)
-        tableView.register(ProfileHeaderView.self, forHeaderFooterViewReuseIdentifier: String(describing: ProfileHeaderView.self))
+        tableView.register(PostTableViewCell.self, forCellReuseIdentifier: reuseId)
+        tableView.register(ProfileHeaderViewNew.self, forHeaderFooterViewReuseIdentifier: String(describing: ProfileHeaderViewNew.self))
         tableView.dataSource = self
         tableView.delegate = self
         
     }
-    
-    
-    
 }
 
-
-
 extension ProfileViewController: UITableViewDataSource {
-    
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return Storage.arrayOfPosts.count
     }
     
-//ПРОБЛЕМА С ПЕРЕИСПОЛЬЗОВАНИЕМ ЯЧЕЕК!!!!!
+    //ПРОБЛЕМА С ПЕРЕИСПОЛЬЗОВАНИЕМ ЯЧЕЕК!!!!! - решена🦆
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-       // let cell: PostTableViewCell = tableView.dequeueReusableCell(withIdentifier: String(describing: PostTableViewCell.self), for: indexPath) as! PostTableViewCell
-       let cell = PostTableViewCell()
+        let cell = tableView.dequeueReusableCell(withIdentifier: reuseId, for: indexPath) as! PostTableViewCell
+        // let cell = PostTableViewCell()
         cell.post = Storage.arrayOfPosts[indexPath.row]
         return cell
     }
 }
 
-
-
 extension ProfileViewController: UITableViewDelegate {
-    
     func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
-        
-        guard let headerView: ProfileHeaderView = tableView.dequeueReusableHeaderFooterView(withIdentifier: String(describing: ProfileHeaderView.self)) as? ProfileHeaderView else { return nil }
-    print("ffffffffffffffffaaaaaaa")
+        guard let headerView: ProfileHeaderViewNew = tableView.dequeueReusableHeaderFooterView(withIdentifier: String(describing: ProfileHeaderViewNew.self)) as? ProfileHeaderViewNew else { return nil }
+        print("пока рабоатет,перекрестились")
         return headerView
     }
     
     func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
         return 220.0
     }
-    
-    
 }
 

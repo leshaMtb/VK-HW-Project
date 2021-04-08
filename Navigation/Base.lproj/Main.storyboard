@@ -84,9 +84,6 @@
                                                 <integer key="value" value="12"/>
                                             </userDefinedRuntimeAttribute>
                                         </userDefinedRuntimeAttributes>
-                                        <connections>
-                                            <action selector="statusTextFieldActionWithSender:" destination="gai-RR-5Zn" eventType="editingDidEnd" id="I3X-9Z-0er"/>
-                                        </connections>
                                     </textField>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="b8L-xI-fEA" userLabel="status Label New">
                                         <rect key="frame" x="16" y="167" width="382" height="50"/>
@@ -95,9 +92,6 @@
                                             <constraint firstAttribute="height" constant="50" id="eqg-YX-vsE"/>
                                         </constraints>
                                         <state key="normal" title="Button"/>
-                                        <connections>
-                                            <action selector="buttonActionWithSender:" destination="gai-RR-5Zn" eventType="touchUpInside" id="oKO-Hd-Bc5"/>
-                                        </connections>
                                     </button>
                                 </subviews>
                                 <constraints>
@@ -117,17 +111,10 @@
                                     <constraint firstAttribute="trailing" secondItem="b8L-xI-fEA" secondAttribute="trailing" constant="16" id="liU-ee-0ws"/>
                                     <constraint firstItem="nuZ-Rf-uTw" firstAttribute="top" secondItem="dZA-kF-Efs" secondAttribute="bottom" constant="36" id="vOG-LI-atw"/>
                                 </constraints>
-                                <connections>
-                                    <outlet property="avatarImageView" destination="e4o-yr-sEj" id="qiH-yQ-df4"/>
-                                    <outlet property="fullName" destination="dZA-kF-Efs" id="qnc-Te-lA7"/>
-                                    <outlet property="setStatusButton" destination="b8L-xI-fEA" id="GeT-nE-ZUm"/>
-                                    <outlet property="statusLabel1" destination="nuZ-Rf-uTw" id="A01-bd-oTD"/>
-                                    <outlet property="statusTextField" destination="WrD-yP-0Y5" id="bTO-AK-3Qy"/>
-                                </connections>
                             </view>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="FCL-IZ-fe8"/>
-                        <color key="backgroundColor" systemColor="systemTealColor"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
                             <constraint firstItem="gai-RR-5Zn" firstAttribute="top" secondItem="FCL-IZ-fe8" secondAttribute="top" id="5Np-eP-itH"/>
                             <constraint firstItem="gai-RR-5Zn" firstAttribute="leading" secondItem="FCL-IZ-fe8" secondAttribute="leading" id="9Vd-ar-LRl"/>
@@ -302,9 +289,6 @@
         </systemColor>
         <systemColor name="systemPinkColor">
             <color red="1" green="0.17647058823529413" blue="0.33333333333333331" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-        </systemColor>
-        <systemColor name="systemTealColor">
-            <color red="0.35294117647058826" green="0.78431372549019607" blue="0.98039215686274506" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </systemColor>
         <systemColor name="systemYellowColor">
             <color red="1" green="0.80000000000000004" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>

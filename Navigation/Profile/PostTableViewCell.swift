@@ -20,7 +20,7 @@ final class PostTableViewCell: UITableViewCell {
             viewsCountLabel.text = post?.viewsCount
         }
     }
-
+    
     private let authorLabel: UILabel = {
         let authorLabel = UILabel()
         authorLabel.font = UIFont.systemFont(ofSize: 20.0, weight: .bold)
@@ -72,15 +72,11 @@ final class PostTableViewCell: UITableViewCell {
     }
     
     required init?(coder: NSCoder) {
-      //  fatalError("init(coder:) has not been implemented")
         super.init(coder: coder)
         setUpView()
     }
     
-    
     func setUpView() {
-        
-        //добавить на контент вью
         
         contentView.addSubview(authorLabel)
         contentView.addSubview(imageView1)
@@ -88,18 +84,15 @@ final class PostTableViewCell: UITableViewCell {
         contentView.addSubview(likesLabel)
         contentView.addSubview(viewsCountLabel)
         
-    //верстка
-        
         NSLayoutConstraint.activate([
             authorLabel.topAnchor.constraint(equalTo: contentView.topAnchor, constant: CGFloat(16)),
-            //authorLabel.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: CGFloat(12)),
             authorLabel.leftAnchor.constraint(equalTo: contentView.leftAnchor, constant: CGFloat(16)),
             authorLabel.rightAnchor.constraint(equalTo: contentView.rightAnchor, constant: CGFloat(-16)),
-        
-            //пока поставлю ноль. потом надо будет поменять на +-16(я запутался)) )
+            
             imageView1.topAnchor.constraint(equalTo: authorLabel.bottomAnchor, constant: CGFloat(16)),
             imageView1.rightAnchor.constraint(equalTo: contentView.rightAnchor),
             imageView1.leftAnchor.constraint(equalTo: contentView.leftAnchor),
+            imageView1.heightAnchor.constraint(equalTo: contentView.widthAnchor, multiplier: 0.75),
             
             descriptionLabel.topAnchor.constraint(equalTo: imageView1.bottomAnchor, constant: CGFloat(16)),
             descriptionLabel.rightAnchor.constraint(equalTo: contentView.rightAnchor,constant: CGFloat(-16)),
@@ -114,13 +107,6 @@ final class PostTableViewCell: UITableViewCell {
             viewsCountLabel.leftAnchor.constraint(equalTo: contentView.leftAnchor, constant: (16)),
             viewsCountLabel.rightAnchor.constraint(equalTo: contentView.rightAnchor, constant: CGFloat(-16)),
             viewsCountLabel.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: CGFloat(-16))
-        
         ])
-        
-        
     }
-    
-    
-    
-    
 }
