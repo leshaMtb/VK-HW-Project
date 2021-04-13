@@ -20,9 +20,11 @@ class ProfileViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+      //  navigationController?.navigationBar.isHidden = true
+        
         view.addSubview(tableView)
         
-        tableView.translatesAutoresizingMaskIntoConstraints = false
+     tableView.translatesAutoresizingMaskIntoConstraints = false
         
         NSLayoutConstraint.activate([
             tableView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: CGFloat(0)),
@@ -33,35 +35,86 @@ class ProfileViewController: UIViewController {
         
         tableView.register(PostTableViewCell.self, forCellReuseIdentifier: reuseId)
         tableView.register(ProfileHeaderViewNew.self, forHeaderFooterViewReuseIdentifier: String(describing: ProfileHeaderViewNew.self))
+        tableView.register(PhotosTableViewCell.self, forCellReuseIdentifier: String(describing: PhotosTableViewCell.self))
         tableView.dataSource = self
         tableView.delegate = self
         
     }
+    
+ 
 }
 
 extension ProfileViewController: UITableViewDataSource {
+    
+    func numberOfSections(in tableView: UITableView) -> Int {
+        return 2
+    }
+    
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return Storage.arrayOfPosts.count
+    
+         switch section {
+                 case 0:
+                     return 1
+                 case 1:
+                     return Storage.arrayOfPosts.count
+                 default:
+                     break
+                 }
+                 return section
+       // return Storage.arrayOfPosts.count
     }
     
     //ПРОБЛЕМА С ПЕРЕИСПОЛЬЗОВАНИЕМ ЯЧЕЕК!!!!! - решена🦆
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: reuseId, for: indexPath) as! PostTableViewCell
-        // let cell = PostTableViewCell()
-        cell.post = Storage.arrayOfPosts[indexPath.row]
-        return cell
+        
+        if indexPath.section == 0 {
+            
+            let cell = tableView.dequeueReusableCell(withIdentifier: String(describing: PhotosTableViewCell.self), for: indexPath) as! PhotosTableViewCell
+            return cell
+            
+        } else {
+            
+            let cell = tableView.dequeueReusableCell(withIdentifier: reuseId, for: indexPath) as! PostTableViewCell
+            // let cell = PostTableViewCell()
+            cell.post = Storage.arrayOfPosts[indexPath.row]
+            return cell
+            
+            
+        }
+ 
     }
 }
 
 extension ProfileViewController: UITableViewDelegate {
+    
     func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
         guard let headerView: ProfileHeaderViewNew = tableView.dequeueReusableHeaderFooterView(withIdentifier: String(describing: ProfileHeaderViewNew.self)) as? ProfileHeaderViewNew else { return nil }
         print("пока рабоатет,перекрестились")
         return headerView
     }
     
-    func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
-        return 220.0
-    }
-}
 
+    
+    func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
+        
+           switch section {
+           case 0:
+               return 220
+           default:
+               return .zero
+           }
+    }
+    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+    
+        switch indexPath.section {
+        case 0:
+            let photoViewController = PhotoViewController()
+            navigationController?.pushViewController(photoViewController, animated: true)
+        default:
+            break
+        }
+    }
+    
+    
+}

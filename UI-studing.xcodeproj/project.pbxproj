@@ -21,6 +21,9 @@
 		18646741261C6DB8008EF088 /* Storage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18646740261C6DB8008EF088 /* Storage.swift */; };
 		18646744261C86FD008EF088 /* PostTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18646743261C86FD008EF088 /* PostTableViewCell.swift */; };
 		18646748261F1D7C008EF088 /* ProfileHeaderViewNew.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18646747261F1D7C008EF088 /* ProfileHeaderViewNew.swift */; };
+		1864676226245C9E008EF088 /* PhotosTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1864676126245C9E008EF088 /* PhotosTableViewCell.swift */; };
+		1864676926249099008EF088 /* PhotosViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1864676826249099008EF088 /* PhotosViewController.swift */; };
+		1864676C2624994D008EF088 /* PhotoCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1864676B2624994D008EF088 /* PhotoCollectionViewCell.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -40,6 +43,9 @@
 		18646740261C6DB8008EF088 /* Storage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Storage.swift; sourceTree = "<group>"; };
 		18646743261C86FD008EF088 /* PostTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostTableViewCell.swift; sourceTree = "<group>"; };
 		18646747261F1D7C008EF088 /* ProfileHeaderViewNew.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileHeaderViewNew.swift; sourceTree = "<group>"; };
+		1864676126245C9E008EF088 /* PhotosTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotosTableViewCell.swift; sourceTree = "<group>"; };
+		1864676826249099008EF088 /* PhotosViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotosViewController.swift; sourceTree = "<group>"; };
+		1864676B2624994D008EF088 /* PhotoCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotoCollectionViewCell.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -94,7 +100,8 @@
 				18029F06260A9D08007D7F96 /* ProfileViewController.swift */,
 				18646747261F1D7C008EF088 /* ProfileHeaderViewNew.swift */,
 				18646743261C86FD008EF088 /* PostTableViewCell.swift */,
-				18646740261C6DB8008EF088 /* Storage.swift */,
+				1864676526248FEC008EF088 /* Photo */,
+				1864676626249031008EF088 /* Storage */,
 			);
 			path = Profile;
 			sourceTree = "<group>";
@@ -105,6 +112,24 @@
 				180D8121261602DA0009BA1D /* LogInViewController.swift */,
 			);
 			path = Login;
+			sourceTree = "<group>";
+		};
+		1864676526248FEC008EF088 /* Photo */ = {
+			isa = PBXGroup;
+			children = (
+				1864676826249099008EF088 /* PhotosViewController.swift */,
+				1864676B2624994D008EF088 /* PhotoCollectionViewCell.swift */,
+				1864676126245C9E008EF088 /* PhotosTableViewCell.swift */,
+			);
+			path = Photo;
+			sourceTree = "<group>";
+		};
+		1864676626249031008EF088 /* Storage */ = {
+			isa = PBXGroup;
+			children = (
+				18646740261C6DB8008EF088 /* Storage.swift */,
+			);
+			path = Storage;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -142,7 +167,7 @@
 					};
 				};
 			};
-			buildConfigurationList = 060782A9250CE27700A87020 /* Build configuration list for PBXProject "Navigation 2" */;
+			buildConfigurationList = 060782A9250CE27700A87020 /* Build configuration list for PBXProject "UI-studing" */;
 			compatibilityVersion = "Xcode 9.3";
 			developmentRegion = en;
 			hasScannedForEncodings = 0;
@@ -178,6 +203,8 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				1864676226245C9E008EF088 /* PhotosTableViewCell.swift in Sources */,
+				1864676926249099008EF088 /* PhotosViewController.swift in Sources */,
 				18646748261F1D7C008EF088 /* ProfileHeaderViewNew.swift in Sources */,
 				18646744261C86FD008EF088 /* PostTableViewCell.swift in Sources */,
 				060782B6250CE27700A87020 /* FeedViewController.swift in Sources */,
@@ -187,6 +214,7 @@
 				060782B4250CE27700A87020 /* SceneDelegate.swift in Sources */,
 				18029F07260A9D08007D7F96 /* ProfileViewController.swift in Sources */,
 				180D8122261602DA0009BA1D /* LogInViewController.swift in Sources */,
+				1864676C2624994D008EF088 /* PhotoCollectionViewCell.swift in Sources */,
 				060782C8250CEE5D00A87020 /* PostViewController.swift in Sources */,
 				18646741261C6DB8008EF088 /* Storage.swift in Sources */,
 			);
@@ -367,7 +395,7 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		060782A9250CE27700A87020 /* Build configuration list for PBXProject "Navigation 2" */ = {
+		060782A9250CE27700A87020 /* Build configuration list for PBXProject "UI-studing" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				060782C0250CE27A00A87020 /* Debug */,
