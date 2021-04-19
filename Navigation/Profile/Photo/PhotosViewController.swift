@@ -43,14 +43,6 @@ class PhotoViewController: UIViewController {
      }
     
     
-    override func viewWillDisappear(_ animated: Bool) {
-        super .viewWillDisappear(animated)
-        navigationController?.setNavigationBarHidden(true, animated: false)
-        
-    }
-    
-    
-    
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = .systemPink

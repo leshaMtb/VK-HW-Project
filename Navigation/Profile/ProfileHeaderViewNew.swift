@@ -18,16 +18,19 @@ class ProfileHeaderViewNew: UITableViewHeaderFooterView {
     }()
     
     lazy var profileImage: UIImageView = {
-        let profileImage = UIImageView()
-        profileImage.image = #imageLiteral(resourceName: " Аватарочка-1")
-        profileImage.layer.cornerRadius = 50
-        profileImage.layer.borderColor = UIColor.white.cgColor
-        profileImage.layer.borderWidth = 3
-        profileImage.clipsToBounds = true
-        profileImage.contentMode = .scaleAspectFill
-        //
-        profileImage.translatesAutoresizingMaskIntoConstraints = false
-        return profileImage
+        let profileImage1 = UIImageView()
+        
+            // interection включен!!!!!!!
+        profileImage1.isUserInteractionEnabled = true
+        
+        profileImage1.image = #imageLiteral(resourceName: " Аватарочка-1")
+        profileImage1.layer.cornerRadius = 50
+        profileImage1.layer.borderColor = UIColor.white.cgColor
+        profileImage1.layer.borderWidth = 3
+        profileImage1.clipsToBounds = true
+        profileImage1.contentMode = .scaleAspectFill
+        profileImage1.translatesAutoresizingMaskIntoConstraints = false
+        return profileImage1
     }()
     
     var profileFullName: UILabel = {
@@ -132,13 +135,13 @@ class ProfileHeaderViewNew: UITableViewHeaderFooterView {
             profileFullName.widthAnchor.constraint(equalToConstant: 180),
             
             status.topAnchor.constraint(equalTo: profileFullName.bottomAnchor, constant: 25),
-            status.leftAnchor.constraint(equalTo: profileImage.rightAnchor, constant: 16),
+            status.leadingAnchor.constraint(equalTo: profileHeaderView.leadingAnchor, constant: 132),
             status.rightAnchor.constraint(equalTo: profileHeaderView.rightAnchor, constant: -16),
             status.heightAnchor.constraint(equalToConstant: 14),
             
             statusTextField.topAnchor.constraint(equalTo: status.bottomAnchor, constant: 10),
             statusTextField.heightAnchor.constraint(equalToConstant: 40),
-            statusTextField.leftAnchor.constraint(equalTo: profileImage.rightAnchor, constant: 16),
+            statusTextField.leadingAnchor.constraint(equalTo: profileHeaderView.leadingAnchor, constant: 132),
             statusTextField.rightAnchor.constraint(equalTo: profileHeaderView.rightAnchor, constant: -16),
             
             statusButton.topAnchor.constraint(equalTo: statusTextField.bottomAnchor, constant: 16),

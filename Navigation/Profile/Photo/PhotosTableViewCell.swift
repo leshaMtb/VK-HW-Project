@@ -19,6 +19,8 @@ class PhotosTableViewCell: UITableViewCell {
         return label
     }()
     
+    
+    //убрать лишний код, выглядит реально убого
     let photo1: UIImageView = {
         let photo1 = UIImageView()
         photo1.image = PhotoGallery.photoCollection[0]
