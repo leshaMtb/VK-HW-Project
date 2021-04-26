@@ -9,7 +9,7 @@
 import UIKit
 
 class ProfileViewController: UIViewController {
-
+    
     let header = ProfileHeaderViewNew()
     
     let reuseId = "cellId"
@@ -21,58 +21,142 @@ class ProfileViewController: UIViewController {
         return tableView
     }()
     
-    var backgroundView: UIView = {
-        let translucent = UIView()
-        translucent.translatesAutoresizingMaskIntoConstraints = false
-        translucent.backgroundColor = UIColor.white.withAlphaComponent(0)
-        return translucent
+    var backgroundView1: UIView = {
+        let backview = UIView()
+        backview.translatesAutoresizingMaskIntoConstraints = false
+        backview.backgroundColor = .white
+        backview.alpha = 0
+        return backview
     }()
     
-    var cancelButtonForAnimation: UIButton = {
+    //rect это родительская вью для аватара. При анимации альфа = 1 и мой аватар непрозрачен ееееее
+    var rect: UIView = {
+        let rect = UIView()
+        rect.translatesAutoresizingMaskIntoConstraints = false
+        rect.backgroundColor = .clear
+        rect.alpha = 0
+        return rect
+    }()
+    
+    
+    var cancelButton: UIButton = {
         let cancelButton = UIButton(type: .close)
-        cancelButton.translatesAutoresizingMaskIntoConstraints = false
+        //   cancelButton.translatesAutoresizingMaskIntoConstraints = false
         cancelButton.alpha = 0
+        cancelButton.isEnabled = true
+        cancelButton.isUserInteractionEnabled = true
         return cancelButton
     }()
     
-    //MARK:-  жесты
-    let animationOpenProfileImage: UIViewPropertyAnimator = UIViewPropertyAnimator(duration: 2.0, curve: UIView.AnimationCurve.easeInOut)
-    let animationCancelButton: UIViewPropertyAnimator = UIViewPropertyAnimator(duration: 2.0, curve: UIView.AnimationCurve.easeInOut)
-    let animationCloseProfileImage: UIViewPropertyAnimator = UIViewPropertyAnimator(duration: 2, curve: .easeInOut)
-
     
+    
+    
+    //MARK:-  жесты   ТЕБЕ СЮДА
     @objc func tap() {
-        animationOpenProfileImage.startAnimation()
-        animationCancelButton.startAnimation()
+        
+        // анимирую прозрачность своих двух вьюх
+        let opacityBackgroundAnimation = UIViewPropertyAnimator(duration: 0.5, curve: .easeInOut) {
+            self.backgroundView1.alpha = 0.5
+            self.rect.alpha = 1
         }
-
+        
+        
+        //здесь у мненя аватар едет на центр экрана,меняет cornerRadius на 0 и увеличивается
+        let profileImageAnimation = UIViewPropertyAnimator(duration: 0.5, curve: .easeInOut) {
+            
+            self.rect.addSubview(self.header.profileImage)
+            
+            self.header.profileImage.frame = .init(
+                x: 0,
+                y: UIScreen.main.bounds.height / 2 - self.view.bounds.width / 2,
+                width: self.view.bounds.width,
+                height: self.view.bounds.width)
+            
+            //c констрейнтами анимация выглядит значительно хуже
+            /*
+             NSLayoutConstraint.activate([
+             self.header.profileImage.centerXAnchor.constraint(equalTo: self.view.centerXAnchor),
+             self.header.profileImage.centerYAnchor.constraint(equalTo: self.view.centerYAnchor),
+             self.header.profileImage.widthAnchor.constraint(equalTo: self.view.widthAnchor),
+             self.header.profileImage.heightAnchor.constraint(equalTo: self.view.widthAnchor)
+             ])
+             
+             */
+            self.header.profileImage.layer.cornerRadius = 0
+            self.header.profileImage.layer.borderWidth = 0
+        }
+        
+        let opacityButtonAnimation = UIViewPropertyAnimator(duration: 0.3, curve: .easeInOut) {
+            self.cancelButton.alpha = 1
+            
+            
+        }
+       
+        opacityBackgroundAnimation.startAnimation()
+        profileImageAnimation.startAnimation()
+        opacityButtonAnimation.startAnimation(afterDelay: 0.5)
+    }
+    
+    
+    
+    
     
     @objc func cancel() {
         
-        if animationCancelButton.isRunning == true && animationOpenProfileImage.isRunning == true {
+        let opacityButtonAnimation = UIViewPropertyAnimator(duration: 0.3, curve: .easeInOut) {
+            self.cancelButton.alpha = 0
+        }
+        
+        let         profileImageAnimation = UIViewPropertyAnimator(duration: 0.5, curve: .easeInOut) {
+            self.header.addSubview(self.header.profileImage)
+            self.header.profileImage.frame = .init(x: 16, y: 16, width: 100, height: 100)
             
-            animationOpenProfileImage.isReversed = true
-            animationOpenProfileImage.isReversed = true
-            cancelButtonForAnimation.isHidden = true
+            /*NSLayoutConstraint.activate([ self.header.profileImage.topAnchor.constraint(equalTo: self.header.topAnchor, constant: 16),
+             self.header.profileImage.leadingAnchor.constraint(equalTo: self.header.leadingAnchor, constant: 16),
+             self.header.profileImage.heightAnchor.constraint(equalToConstant: 100),
+             self.header.profileImage.widthAnchor.constraint(equalToConstant: 100)])
+             */
+            
+            
+            self.header.profileImage.layer.cornerRadius = 50
             self.header.profileImage.layer.borderWidth = 3
             self.header.profileImage.layer.borderColor = UIColor.white.cgColor
-            
-        } else {
-            animationCloseProfileImage.startAnimation()
         }
+        
+        let         opacityBackgroundAnimation = UIViewPropertyAnimator(duration: 0.5, curve: .easeInOut) {
+            self.backgroundView1.alpha = 0
+            self.rect.alpha = 0
+        }
+        
+        opacityButtonAnimation.startAnimation()
+        profileImageAnimation.startAnimation(afterDelay: 0)
+        opacityBackgroundAnimation.startAnimation(afterDelay: 0)
     }
     
     
     override func viewWillAppear(_ animated: Bool) {
-         super .viewWillAppear(animated)
-         navigationController?.navigationBar.isHidden = true
-     }
+        super .viewWillAppear(animated)
+        navigationController?.navigationBar.isHidden = true
+    }
     
     
     
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        
+        //animation
+        self.header.addSubview(self.backgroundView1)
+        self.backgroundView1.frame = .init(x: 0, y: 0, width: self.view.frame.width, height: self.view.frame.height)
+        self.header.addSubview(self.rect)
+        self.rect.frame = backgroundView1.frame
+        
+        self.rect.addSubview(self.cancelButton)
+        self.cancelButton.frame = .init(x: self.view.frame.width - 20, y: 0, width: 20, height: 20)
+        
+        
+        
+        
+        tableView.showsVerticalScrollIndicator = false
         view.addSubview(tableView)
         tableView.translatesAutoresizingMaskIntoConstraints = false
         
@@ -88,64 +172,10 @@ class ProfileViewController: UIViewController {
         tableView.register(PhotosTableViewCell.self, forCellReuseIdentifier: String(describing: PhotosTableViewCell.self))
         tableView.dataSource = self
         tableView.delegate = self
-        
-       
-       
-        //переверстать констрейнтами
-        //пока пусть живет так
-        cancelButtonForAnimation.frame = .init(
-            x: self.view.bounds.width - 16,
-            y: 0,
-            width: 16,
-            height: 16)
-        
-        self.backgroundView.frame = .init(x: 0, y: 0, width: self.view.bounds.width, height: self.view.bounds.height)
-        
-        animationOpenProfileImage.addAnimations {
-            self.header.addSubview(self.backgroundView)
-            self.backgroundView.transform = self.backgroundView.transform.scaledBy(x: 1, y: 1)
-            self.backgroundView.addSubview(self.header.profileImage)
-            self.header.profileImage.frame = .init(
-                x: self.view.bounds.width / 2 - 50,
-                y: self.view.bounds.height / 2 - 50,
-                width: 100,
-                height: 100)
-            self.header.profileImage.transform = self.header.profileImage.transform.scaledBy(x: 4, y: 4)
-            self.header.profileImage.layer.cornerRadius = 0
-            self.header.profileImage.layer.borderWidth = 0
-            self.backgroundView.backgroundColor = UIColor.white.withAlphaComponent(0.5)
-               }
-        
-        animationCancelButton.addAnimations {
-            self.backgroundView.addSubview(self.cancelButtonForAnimation)
-            self.cancelButtonForAnimation.alpha = 1
-        }
-        
-        animationCloseProfileImage.addAnimations {
-            self.backgroundView.isHidden = true
-            self.cancelButtonForAnimation.isHidden = true
-            self.backgroundView.frame = .init(x: 0, y: 0, width: 0, height: 0)
-            
-            self.header.addSubview(self.header.profileImage)
-            self.header.profileImage.transform = self.header.profileImage.transform.scaledBy(x: 0.25, y: 0.25)
-            
-            NSLayoutConstraint.activate([
-        
-                self.header.profileImage.topAnchor.constraint(equalTo: self.header.topAnchor, constant: 16),
-                self.header.profileImage.leadingAnchor.constraint(equalTo: self.header.leadingAnchor, constant: 16),
-                self.header.profileImage.heightAnchor.constraint(equalToConstant: 100),
-                self.header.profileImage.widthAnchor.constraint(equalToConstant: 100),
-        
-            ])
-            
-         
-            self.header.profileImage.layer.cornerRadius = 50
-            self.header.profileImage.layer.borderWidth = 3
-            self.header.profileImage.layer.borderColor = UIColor.white.cgColor
-        }
-        
     }
 }
+
+
 
 extension ProfileViewController: UITableViewDataSource {
     
@@ -193,16 +223,20 @@ extension ProfileViewController: UITableViewDelegate {
          print("пока рабоатет,перекрестились")*/
         
         
-        //MARK:- ВСЕ СЮДАААААААААА!!!!!!!!!!!!!!!
         //создал жест и добавил его на profileImage
         let tapGest = UITapGestureRecognizer(target: self, action: #selector(tap))
         header.profileImage.addGestureRecognizer(tapGest)
         
         let cancelGest = UITapGestureRecognizer(target: self, action: #selector(cancel))
-        cancelButtonForAnimation.addGestureRecognizer(cancelGest)
+        cancelButton.addGestureRecognizer(cancelGest)
+        //  rect.addGestureRecognizer(cancelGest)
         
-        return header
-
+        switch section {
+        case 0:
+            return header
+        default:
+            return nil
+        }
     }
     
     
@@ -213,7 +247,7 @@ extension ProfileViewController: UITableViewDelegate {
         case 0:
             return 220
         default:
-            return .zero
+            return 0
         }
     }
     

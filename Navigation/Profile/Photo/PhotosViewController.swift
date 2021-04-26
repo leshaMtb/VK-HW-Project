@@ -11,49 +11,25 @@ import UIKit
 class PhotoViewController: UIViewController {
     
     lazy var collectionView = UICollectionView(frame: .zero, collectionViewLayout: UICollectionViewFlowLayout())
-    
-    //метод который будет вызван при открытии контроллера,в нем мы вызываем нав-бар
-  /*  override func viewWillAppear(_ animated: Bool) {
-        super .viewWillAppear(animated)
-        navigationController?.navigationBar.isHidden = false
-    }
-    
-    //тут обратная ситуация
-   override func viewWillDisappear(_ animated: Bool) {
-        super .viewWillDisappear(animated)
-        navigationController?.setNavigationBarHidden(true, animated: false)
-    }
-    
-    override func viewWillLayoutSubviews() {
-        func viewWillAppear(_ animated: Bool) {
-          
-            navigationController?.navigationBar.isHidden = false
-        }
-        
-        func viewWillDisappear(_ animated: Bool) {
-             
-              navigationController?.setNavigationBarHidden(true, animated: false)
-          }
-    }
-    */
-    
+
     override func viewWillAppear(_ animated: Bool) {
          super .viewWillAppear(animated)
          navigationController?.navigationBar.isHidden = false
      }
     
-    
     override func viewDidLoad() {
         super.viewDidLoad()
-        view.backgroundColor = .systemPink
+
+        collectionView.showsVerticalScrollIndicator = false
         collectionView.translatesAutoresizingMaskIntoConstraints = false
         view.addSubview(collectionView)
         title = "Photo Gallery"
         collectionView.backgroundColor = .white
         collectionView.register(PhotoCollectionViewCell.self, forCellWithReuseIdentifier: String(describing: PhotoCollectionViewCell.self))
+        
         collectionView.delegate = self
         collectionView.dataSource = self
-       // navigationController?.navigationBar.isHidden = false
+    
         NSLayoutConstraint.activate([
             collectionView.topAnchor.constraint(equalTo: view.topAnchor),
             collectionView.leftAnchor.constraint(equalTo: view.leftAnchor),
