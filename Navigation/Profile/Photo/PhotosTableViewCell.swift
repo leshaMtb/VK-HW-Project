@@ -8,6 +8,7 @@
 
 
 import UIKit
+import StorageService
 
 class PhotosTableViewCell: UITableViewCell {
     
@@ -104,13 +105,13 @@ extension PhotosTableViewCell: UICollectionViewDataSource {
     }
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return PhotoGallery.photoCollection.count
+        return Storage.photoCollection.count
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: String(describing: PhotoCollectionViewCell.self), for: indexPath) as! PhotoCollectionViewCell
         
-        let photo = PhotoGallery.photoCollection[indexPath.row]
+        let photo = Storage.photoCollection[indexPath.row]
         
         cell.photo.image = photo
         

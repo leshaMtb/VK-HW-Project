@@ -6,8 +6,11 @@
 //  Copyright © 2021 Artem Novichkov. All rights reserved.
 //
 
-import UIKit
 
+import UIKit
+import StorageService
+
+//выполнение второй части первого дз в модуле IOSINT4 можно чекнуть в ProfileHeaderView, там я поменял цвет хэдера на розовый в DEBUG моде.
 class ProfileViewController: UIViewController {
     
     let header = ProfileHeaderViewNew()
@@ -18,6 +21,7 @@ class ProfileViewController: UIViewController {
         let tableView = UITableView()
         tableView.isUserInteractionEnabled = true
         tableView.register(ProfileHeaderViewNew.self, forHeaderFooterViewReuseIdentifier: String(describing: ProfileHeaderViewNew.self))
+        //tableView.backgroundColor = 
         return tableView
     }()
     
@@ -107,7 +111,7 @@ class ProfileViewController: UIViewController {
             self.cancelButton.alpha = 0
         }
         
-        let         profileImageAnimation = UIViewPropertyAnimator(duration: 0.5, curve: .easeInOut) {
+        let profileImageAnimation = UIViewPropertyAnimator(duration: 0.5, curve: .easeInOut) {
             self.header.addSubview(self.header.profileImage)
             self.header.profileImage.frame = .init(x: 16, y: 16, width: 100, height: 100)
             
@@ -143,6 +147,7 @@ class ProfileViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
         
         //animation
         self.header.addSubview(self.backgroundView1)
@@ -208,6 +213,7 @@ extension ProfileViewController: UITableViewDataSource {
             
             let cell = tableView.dequeueReusableCell(withIdentifier: reuseId, for: indexPath) as! PostTableViewCell
             // let cell = PostTableViewCell()
+            
             cell.post = Storage.arrayOfPosts[indexPath.row]
             return cell
             

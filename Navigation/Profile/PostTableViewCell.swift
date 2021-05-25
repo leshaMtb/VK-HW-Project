@@ -7,19 +7,20 @@
 //
 
 import UIKit
-
+import StorageService
 
 final class PostTableViewCell: UITableViewCell {
     
-    var post: PostNew?  {
+    var post: Storage.PostNew? {
         didSet{
             authorLabel.text = post?.author
             imageView1.image = post?.image
             descriptionLabel.text = post?.description
-            likesLabel.text = post?.likes 
+            likesLabel.text = post?.likes
             viewsCountLabel.text = post?.viewsCount
         }
     }
+    
     
     private let authorLabel: UILabel = {
         let authorLabel = UILabel()

@@ -12,7 +12,15 @@ class ProfileHeaderViewNew: UITableViewHeaderFooterView {
     
     var profileHeaderView: UIView! = {
         let headerView = UIView()
+        
+        // В DEBUG версии фон хэдера на ProfileViewController розовый. В RELEASE затемненный белый.
+        #if DEBUG
+        headerView.backgroundColor = .systemPink
+        #else
         headerView.backgroundColor = .init(white: 0.95, alpha: 1.0)
+        #endif
+        
+
         headerView.translatesAutoresizingMaskIntoConstraints = false
         return headerView
     }()
