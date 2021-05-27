@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import SnapKit
 
 class ProfileHeaderViewNew: UITableViewHeaderFooterView {
     
@@ -20,7 +21,7 @@ class ProfileHeaderViewNew: UITableViewHeaderFooterView {
     lazy var profileImage: UIImageView = {
         let profileImage1 = UIImageView()
         
-            // interection включен!!!!!!!
+        // interection включен!!!!!!!
         profileImage1.isUserInteractionEnabled = true
         
         profileImage1.image = #imageLiteral(resourceName: " Аватарочка-1")
@@ -102,14 +103,16 @@ class ProfileHeaderViewNew: UITableViewHeaderFooterView {
     
     override init(reuseIdentifier: String?) {
         super.init(reuseIdentifier: reuseIdentifier)
-        setupViews()
+        createUiWithSnapKit()
     }
     
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
     
-    func setupViews() {
+
+    func createUiWithSnapKit() {
+        
         contentView.addSubview(profileHeaderView)
         profileHeaderView.addSubview(profileImage)
         profileHeaderView.addSubview(profileFullName)
@@ -117,37 +120,51 @@ class ProfileHeaderViewNew: UITableViewHeaderFooterView {
         profileHeaderView.addSubview(statusTextField)
         profileHeaderView.addSubview(statusButton)
         
-        NSLayoutConstraint.activate([
-            
-            profileHeaderView.topAnchor.constraint(equalTo: contentView.topAnchor),
-            profileHeaderView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor),
-            profileHeaderView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor),
-            profileHeaderView.heightAnchor.constraint(equalToConstant: 220),
-            
-            profileImage.topAnchor.constraint(equalTo: profileHeaderView.topAnchor, constant: 16),
-            profileImage.leadingAnchor.constraint(equalTo: profileHeaderView.leadingAnchor, constant: 16),
-            profileImage.heightAnchor.constraint(equalToConstant: 100),
-            profileImage.widthAnchor.constraint(equalToConstant: 100),
-            
-            profileFullName.topAnchor.constraint(equalTo: profileHeaderView.topAnchor, constant: 27),
-            profileFullName.heightAnchor.constraint(equalToConstant: 30),
-            profileFullName.leadingAnchor.constraint(equalTo: profileHeaderView.leadingAnchor, constant: 132),
-            profileFullName.widthAnchor.constraint(equalToConstant: 180),
-            
-            status.topAnchor.constraint(equalTo: profileFullName.bottomAnchor, constant: 25),
-            status.leadingAnchor.constraint(equalTo: profileHeaderView.leadingAnchor, constant: 132),
-            status.rightAnchor.constraint(equalTo: profileHeaderView.rightAnchor, constant: -16),
-            status.heightAnchor.constraint(equalToConstant: 14),
-            
-            statusTextField.topAnchor.constraint(equalTo: status.bottomAnchor, constant: 10),
-            statusTextField.heightAnchor.constraint(equalToConstant: 40),
-            statusTextField.leadingAnchor.constraint(equalTo: profileHeaderView.leadingAnchor, constant: 132),
-            statusTextField.rightAnchor.constraint(equalTo: profileHeaderView.rightAnchor, constant: -16),
-            
-            statusButton.topAnchor.constraint(equalTo: statusTextField.bottomAnchor, constant: 16),
-            statusButton.rightAnchor.constraint(equalTo: profileHeaderView.rightAnchor, constant: -16),
-            statusButton.leftAnchor.constraint(equalTo: profileHeaderView.leftAnchor, constant: 16),
-            statusButton.heightAnchor.constraint(equalToConstant: 50)
-        ])
+        //верстка подложки хедера
+        profileHeaderView.snp.makeConstraints { profileHeaderView in
+            profileHeaderView.top.equalToSuperview()
+            profileHeaderView.left.right.equalToSuperview()
+            profileHeaderView.height.equalTo(220)
+        }
+        
+        //верста аватарки
+        profileImage.snp.makeConstraints { profileImage in
+            profileImage.left.top.equalTo(16)
+            profileImage.height.width.equalTo(100)
+        }
+        
+        //верстка имя
+        profileFullName.snp.makeConstraints { profileFullName in
+            profileFullName.top.equalTo(27)
+            profileFullName.height.equalTo(30)
+            profileFullName.left.equalTo(132)
+            profileFullName.right.equalTo(-16)
+        }
+        
+       //верстка статус
+        status.snp.makeConstraints { status in
+            status.top.equalTo(profileFullName).inset(40)
+            status.left.equalTo(132)
+            status.right.equalTo(-16)
+            status.height.equalTo(40)
+        }
+        
+        //верстка текстфилда
+        statusTextField.snp.makeConstraints { statusTextField in
+            statusTextField.left.equalTo(132)
+            statusTextField.right.equalTo(-16)
+            statusTextField.top.equalTo(status).inset(40)
+            statusTextField.height.equalTo(40)
+        }
+        
+        //кнопочка
+        statusButton.snp.makeConstraints { statusButton in
+            statusButton.top.equalTo(statusTextField).inset(55)
+            statusButton.height.equalTo(50)
+            statusButton.left.equalTo(16)
+            statusButton.right.equalTo(-16)
+        }
+    
     }
+    
 }
