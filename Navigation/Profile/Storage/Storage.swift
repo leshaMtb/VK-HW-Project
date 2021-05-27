@@ -13,7 +13,7 @@ let author = "Shirokov Aleksey"
 struct PostNew {
     let author: String
     let description: String
-    let image: UIImage
+    var image: UIImage
     let likes: String
     let viewsCount: String
 }

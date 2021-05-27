@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import iOSIntPackage
 
 class ProfileViewController: UIViewController {
     
@@ -207,11 +208,20 @@ extension ProfileViewController: UITableViewDataSource {
         } else {
             
             let cell = tableView.dequeueReusableCell(withIdentifier: reuseId, for: indexPath) as! PostTableViewCell
-            // let cell = PostTableViewCell()
+           
             cell.post = Storage.arrayOfPosts[indexPath.row]
+            
+            //делаю фильтр для постов с помощью фреймворка iosintpackage
+            //работает, хе-хе 🦆
+            let image = cell.post?.image
+            if image != nil {
+                let gg = ImageProcessor()
+                gg.processImage(sourceImage: image!, filter: .monochrome(color: .yellow, intensity: 0.2)) { image in
+                    cell.post?.image = image!
+                }
+            }
+        
             return cell
-            
-            
         }
     }
 }
