@@ -8,6 +8,7 @@
 
 
 import UIKit
+import StorageService
 
 class PhotosTableViewCell: UITableViewCell {
     
@@ -24,8 +25,7 @@ class PhotosTableViewCell: UITableViewCell {
         
         return photosLabel
     }()
-    
-    
+
    private let pointer: UILabel = {
         let pointer = UILabel()
         pointer.text = "→"
@@ -35,8 +35,7 @@ class PhotosTableViewCell: UITableViewCell {
     
         return pointer
     }()
-    
-    
+
     private lazy var collectionView: UICollectionView = {
         let layout = UICollectionViewFlowLayout()
         let collectionView = UICollectionView(frame: .zero, collectionViewLayout: layout)
@@ -57,13 +56,11 @@ class PhotosTableViewCell: UITableViewCell {
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
         setupViews()
-        
     }
     
     required init?(coder: NSCoder) {
         super.init(coder: coder)
     }
-    
     
     private func setupViews() {
         
@@ -74,23 +71,18 @@ class PhotosTableViewCell: UITableViewCell {
         contentView.addSubview(collectionView)
         
         collectionView.translatesAutoresizingMaskIntoConstraints = false
-        
-     
-        
-        
+
         NSLayoutConstraint.activate([
             photoLabel.topAnchor.constraint(equalTo: contentView.topAnchor, constant: defaultInset),
             photoLabel.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: defaultInset),
-                                        
-       
+                            
             pointer.centerYAnchor.constraint(equalTo: photoLabel.centerYAnchor),
             pointer.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -1 * defaultInset),
                                         
             collectionView.topAnchor.constraint(equalTo: photoLabel.bottomAnchor, constant: defaultInset),
             collectionView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: defaultInset),
             collectionView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -1 * defaultInset),
-         
-                                        collectionView.heightAnchor.constraint(equalToConstant: (UIScreen.main.bounds.width - 48) / 4),
+            collectionView.heightAnchor.constraint(equalToConstant: (UIScreen.main.bounds.width - 48) / 4),
                                         
             contentView.bottomAnchor.constraint(equalTo: collectionView.bottomAnchor, constant: defaultInset)])
         print(UIScreen.main.bounds.width)
@@ -104,13 +96,13 @@ extension PhotosTableViewCell: UICollectionViewDataSource {
     }
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return PhotoGallery.photoCollection.count
+        return StorageService.Storage.photoCollection.count
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: String(describing: PhotoCollectionViewCell.self), for: indexPath) as! PhotoCollectionViewCell
         
-        let photo = PhotoGallery.photoCollection[indexPath.row]
+        let photo = StorageService.Storage.photoCollection[indexPath.row]
         
         cell.photo.image = photo
         
@@ -118,9 +110,7 @@ extension PhotosTableViewCell: UICollectionViewDataSource {
         
         return cell
     }
-    
-    
-    
+
 }
 
 extension PhotosTableViewCell: UICollectionViewDelegateFlowLayout {

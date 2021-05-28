@@ -16,16 +16,13 @@ class PhotoCollectionViewCell: UICollectionViewCell {
         photo1.contentMode = .scaleToFill
         photo1.layer.cornerRadius = 6
         photo1.clipsToBounds = true
-        
         return photo1
     }()
     
     override init(frame: CGRect) {
-        
         super .init(frame: frame)
         photo.frame = contentView.frame
         contentView.addSubview(photo)
-        
     }
     
     required init?(coder: NSCoder) {

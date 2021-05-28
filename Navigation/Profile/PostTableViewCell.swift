@@ -7,11 +7,11 @@
 //
 
 import UIKit
-
+import StorageService
 
 final class PostTableViewCell: UITableViewCell {
     
-    var post: PostNew?  {
+    var post: StorageService.Storage.PostNew?  {
         didSet{
             authorLabel.text = post?.author
             imageView1.image = post?.image
