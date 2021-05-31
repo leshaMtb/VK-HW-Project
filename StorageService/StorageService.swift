@@ -6,21 +6,12 @@
 //  Copyright © 2021 Artem Novichkov. All rights reserved.
 //
 
-
 import UIKit
 
 let author = "Shirokov Aleksey"
 
 public class Storage {
-    
-    public struct PostNew {
-        public let author: String
-        public let description: String
-        public let image: UIImage
-        public let likes: String
-        public let viewsCount: String
-    }
-    
+
     public static let arrayOfPosts = [
         PostNew(author: author, description: "Напишу здесь немного рандомного текста из головы чтобы проверить как растягивается ячейка с большим описанием. Когда я был совсем маленьким,дедуля отвел меня в цирк,там было мнооого всего интереесного и бла бла бла, но сильнее всего мне запомнился полет радиоуправляемого самолета в антракте. Спустя 15 лет я обзавелся собственным кружком по авиамоделированию :)", image: #imageLiteral(resourceName: "plane"), likes: "Likes: 29", viewsCount: "Views: 150"),
         PostNew(author: author, description: "Делаю барспин под строгинским мостом!", image: #imageLiteral(resourceName: "bar"), likes: "Likes: 20", viewsCount: "Views: 148"),

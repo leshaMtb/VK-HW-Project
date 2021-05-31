@@ -154,13 +154,12 @@ extension ProfileViewController: UITableViewDataSource {
         case 0:
             return 1
         case 1:
-            return StorageService.Storage.arrayOfPosts.count
+            return Storage.arrayOfPosts.count
         default:
             break
         }
         return section
     }
-    
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         if indexPath.section == 0 {
@@ -191,9 +190,7 @@ extension ProfileViewController: UITableViewDelegate {
             return nil
         }
     }
-    
-    
-    
+
     func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
         switch section {
         case 0:
@@ -212,6 +209,4 @@ extension ProfileViewController: UITableViewDelegate {
             break
         }
     }
-    
-    
 }

@@ -11,7 +11,7 @@ import StorageService
 
 final class PostTableViewCell: UITableViewCell {
     
-    var post: Storage.PostNew? {
+    var post: PostNew? {
         didSet{
             authorLabel.text = post?.author
             imageView1.image = post?.image

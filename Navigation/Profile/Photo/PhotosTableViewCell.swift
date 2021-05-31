@@ -68,18 +68,17 @@ class PhotosTableViewCell: UITableViewCell {
         collectionView.translatesAutoresizingMaskIntoConstraints = false
         
         NSLayoutConstraint.activate([
-                                        photoLabel.topAnchor.constraint(equalTo: contentView.topAnchor, constant: defaultInset),
-                                        photoLabel.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: defaultInset),
-                                        
-                                        pointer.centerYAnchor.constraint(equalTo: photoLabel.centerYAnchor),
-                                        pointer.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -1 * defaultInset),
-                                        
-                                        collectionView.topAnchor.constraint(equalTo: photoLabel.bottomAnchor, constant: defaultInset),
-                                        collectionView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: defaultInset),
-                                        collectionView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -1 * defaultInset),
-                                        collectionView.heightAnchor.constraint(equalToConstant: (UIScreen.main.bounds.width - 48) / 4),
-                                        
-                                        contentView.bottomAnchor.constraint(equalTo: collectionView.bottomAnchor, constant: defaultInset)])
+            photoLabel.topAnchor.constraint(equalTo: contentView.topAnchor, constant: defaultInset),
+            photoLabel.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: defaultInset),
+            pointer.centerYAnchor.constraint(equalTo: photoLabel.centerYAnchor),
+            pointer.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -1 * defaultInset),
+            collectionView.topAnchor.constraint(equalTo: photoLabel.bottomAnchor, constant: defaultInset),
+            collectionView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: defaultInset),
+            collectionView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -1 * defaultInset),
+            collectionView.heightAnchor.constraint(equalToConstant: (UIScreen.main.bounds.width - 48) / 4),
+
+            contentView.bottomAnchor.constraint(equalTo: collectionView.bottomAnchor, constant: defaultInset)
+        ])
         print(UIScreen.main.bounds.width)
     }
     
