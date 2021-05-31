@@ -6,7 +6,6 @@
 //  Copyright © 2021 Artem Novichkov. All rights reserved.
 //
 
-
 import UIKit
 import StorageService
 
@@ -20,23 +19,18 @@ class PhotosTableViewCell: UITableViewCell {
         photosLabel.text = "Photos"
         photosLabel.font = UIFont.boldSystemFont(ofSize: 24)
         photosLabel.textColor = .black
-
         photosLabel.translatesAutoresizingMaskIntoConstraints = false
-        
         return photosLabel
     }()
     
-    
-   private let pointer: UILabel = {
+    private let pointer: UILabel = {
         let pointer = UILabel()
         pointer.text = "→"
         pointer.textColor = .black
         pointer.font = .systemFont(ofSize: 20, weight: .bold)
         pointer.translatesAutoresizingMaskIntoConstraints = false
-    
         return pointer
     }()
-    
     
     private lazy var collectionView: UICollectionView = {
         let layout = UICollectionViewFlowLayout()
@@ -45,26 +39,23 @@ class PhotosTableViewCell: UITableViewCell {
         layout.scrollDirection = .horizontal
         
         collectionView.register(PhotoCollectionViewCell.self, forCellWithReuseIdentifier: String(describing: PhotoCollectionViewCell.self))
-       
+        
         collectionView.showsHorizontalScrollIndicator = false
         collectionView.backgroundColor = .white
         
         collectionView.dataSource = self
         collectionView.delegate = self
-        
         return collectionView
     }()
     
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
         setupViews()
-        
     }
     
     required init?(coder: NSCoder) {
         super.init(coder: coder)
     }
-    
     
     private func setupViews() {
         
@@ -76,24 +67,19 @@ class PhotosTableViewCell: UITableViewCell {
         
         collectionView.translatesAutoresizingMaskIntoConstraints = false
         
-     
-        
-        
         NSLayoutConstraint.activate([
-            photoLabel.topAnchor.constraint(equalTo: contentView.topAnchor, constant: defaultInset),
-            photoLabel.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: defaultInset),
+                                        photoLabel.topAnchor.constraint(equalTo: contentView.topAnchor, constant: defaultInset),
+                                        photoLabel.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: defaultInset),
                                         
-       
-            pointer.centerYAnchor.constraint(equalTo: photoLabel.centerYAnchor),
-            pointer.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -1 * defaultInset),
+                                        pointer.centerYAnchor.constraint(equalTo: photoLabel.centerYAnchor),
+                                        pointer.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -1 * defaultInset),
                                         
-            collectionView.topAnchor.constraint(equalTo: photoLabel.bottomAnchor, constant: defaultInset),
-            collectionView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: defaultInset),
-            collectionView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -1 * defaultInset),
-         
+                                        collectionView.topAnchor.constraint(equalTo: photoLabel.bottomAnchor, constant: defaultInset),
+                                        collectionView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: defaultInset),
+                                        collectionView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -1 * defaultInset),
                                         collectionView.heightAnchor.constraint(equalToConstant: (UIScreen.main.bounds.width - 48) / 4),
                                         
-            contentView.bottomAnchor.constraint(equalTo: collectionView.bottomAnchor, constant: defaultInset)])
+                                        contentView.bottomAnchor.constraint(equalTo: collectionView.bottomAnchor, constant: defaultInset)])
         print(UIScreen.main.bounds.width)
     }
     
@@ -119,8 +105,6 @@ extension PhotosTableViewCell: UICollectionViewDataSource {
         
         return cell
     }
-    
-    
     
 }
 

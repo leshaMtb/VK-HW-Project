@@ -6,7 +6,9 @@
 //  Copyright © 2020 Artem Novichkov. All rights reserved.
 //
 
-struct Post {
-    
-    let title: String
+public struct Post {
+    public let title: String
+    public  init(title: String) {
+        self.title = title
+    }
 }

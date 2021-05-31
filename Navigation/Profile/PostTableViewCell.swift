@@ -21,7 +21,6 @@ final class PostTableViewCell: UITableViewCell {
         }
     }
     
-    
     private let authorLabel: UILabel = {
         let authorLabel = UILabel()
         authorLabel.font = UIFont.systemFont(ofSize: 20.0, weight: .bold)

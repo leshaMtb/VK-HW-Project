@@ -12,25 +12,19 @@ class ProfileHeaderViewNew: UITableViewHeaderFooterView {
     
     var profileHeaderView: UIView! = {
         let headerView = UIView()
-        
-        // В DEBUG версии фон хэдера на ProfileViewController розовый. В RELEASE затемненный белый.
+        //task1.2
         #if DEBUG
         headerView.backgroundColor = .systemPink
         #else
         headerView.backgroundColor = .init(white: 0.95, alpha: 1.0)
         #endif
-        
-
         headerView.translatesAutoresizingMaskIntoConstraints = false
         return headerView
     }()
     
     lazy var profileImage: UIImageView = {
         let profileImage1 = UIImageView()
-        
-            // interection включен!!!!!!!
         profileImage1.isUserInteractionEnabled = true
-        
         profileImage1.image = #imageLiteral(resourceName: " Аватарочка-1")
         profileImage1.layer.cornerRadius = 50
         profileImage1.layer.borderColor = UIColor.white.cgColor
@@ -70,7 +64,6 @@ class ProfileHeaderViewNew: UITableViewHeaderFooterView {
         textField.textColor = .black
         textField.translatesAutoresizingMaskIntoConstraints = false
         textField.addTarget(self, action: #selector(statusTextChanged(_:)), for: .editingChanged)
-        
         textField.leftView = UIView(frame: CGRect(x: 0, y: 0, width: 10, height: 40))
         textField.leftViewMode = .always
         
@@ -92,7 +85,6 @@ class ProfileHeaderViewNew: UITableViewHeaderFooterView {
         return button
     }()
     
-    //буфер для текстфилда
     private var statusText: String?
     
     @objc func buttonPressed() {
@@ -135,6 +127,7 @@ class ProfileHeaderViewNew: UITableViewHeaderFooterView {
             profileImage.topAnchor.constraint(equalTo: profileHeaderView.topAnchor, constant: 16),
             profileImage.leadingAnchor.constraint(equalTo: profileHeaderView.leadingAnchor, constant: 16),
             profileImage.heightAnchor.constraint(equalToConstant: 100),
+            
             profileImage.widthAnchor.constraint(equalToConstant: 100),
             
             profileFullName.topAnchor.constraint(equalTo: profileHeaderView.topAnchor, constant: 27),

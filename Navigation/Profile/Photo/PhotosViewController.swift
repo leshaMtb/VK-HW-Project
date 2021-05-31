@@ -12,15 +12,15 @@ import StorageService
 class PhotoViewController: UIViewController {
     
     lazy var collectionView = UICollectionView(frame: .zero, collectionViewLayout: UICollectionViewFlowLayout())
-
+    
     override func viewWillAppear(_ animated: Bool) {
-         super .viewWillAppear(animated)
-         navigationController?.navigationBar.isHidden = false
-     }
+        super .viewWillAppear(animated)
+        navigationController?.navigationBar.isHidden = false
+    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        
         collectionView.showsVerticalScrollIndicator = false
         collectionView.translatesAutoresizingMaskIntoConstraints = false
         view.addSubview(collectionView)
@@ -30,7 +30,7 @@ class PhotoViewController: UIViewController {
         
         collectionView.delegate = self
         collectionView.dataSource = self
-    
+        
         NSLayoutConstraint.activate([
             collectionView.topAnchor.constraint(equalTo: view.topAnchor),
             collectionView.leftAnchor.constraint(equalTo: view.leftAnchor),

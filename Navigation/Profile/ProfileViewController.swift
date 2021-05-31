@@ -10,7 +10,6 @@
 import UIKit
 import StorageService
 
-//выполнение второй части первого дз в модуле IOSINT4 можно чекнуть в ProfileHeaderView, там я поменял цвет хэдера на розовый в DEBUG моде.
 class ProfileViewController: UIViewController {
     
     let header = ProfileHeaderViewNew()
@@ -21,7 +20,6 @@ class ProfileViewController: UIViewController {
         let tableView = UITableView()
         tableView.isUserInteractionEnabled = true
         tableView.register(ProfileHeaderViewNew.self, forHeaderFooterViewReuseIdentifier: String(describing: ProfileHeaderViewNew.self))
-        //tableView.backgroundColor = 
         return tableView
     }()
     
@@ -33,7 +31,6 @@ class ProfileViewController: UIViewController {
         return backview
     }()
     
-    //rect это родительская вью для аватара. При анимации альфа = 1 и мой аватар непрозрачен ееееее
     var rect: UIView = {
         let rect = UIView()
         rect.translatesAutoresizingMaskIntoConstraints = false
@@ -45,17 +42,12 @@ class ProfileViewController: UIViewController {
     
     var cancelButton: UIButton = {
         let cancelButton = UIButton(type: .close)
-        //   cancelButton.translatesAutoresizingMaskIntoConstraints = false
         cancelButton.alpha = 0
         cancelButton.isEnabled = true
         cancelButton.isUserInteractionEnabled = true
         return cancelButton
     }()
     
-    
-    
-    
-    //MARK:-  жесты   ТЕБЕ СЮДА
     @objc func tap() {
         
         // анимирую прозрачность своих двух вьюх
@@ -76,34 +68,18 @@ class ProfileViewController: UIViewController {
                 width: self.view.bounds.width,
                 height: self.view.bounds.width)
             
-            //c констрейнтами анимация выглядит значительно хуже
-            /*
-             NSLayoutConstraint.activate([
-             self.header.profileImage.centerXAnchor.constraint(equalTo: self.view.centerXAnchor),
-             self.header.profileImage.centerYAnchor.constraint(equalTo: self.view.centerYAnchor),
-             self.header.profileImage.widthAnchor.constraint(equalTo: self.view.widthAnchor),
-             self.header.profileImage.heightAnchor.constraint(equalTo: self.view.widthAnchor)
-             ])
-             
-             */
             self.header.profileImage.layer.cornerRadius = 0
             self.header.profileImage.layer.borderWidth = 0
         }
         
         let opacityButtonAnimation = UIViewPropertyAnimator(duration: 0.3, curve: .easeInOut) {
             self.cancelButton.alpha = 1
-            
-            
         }
-       
+        
         opacityBackgroundAnimation.startAnimation()
         profileImageAnimation.startAnimation()
         opacityButtonAnimation.startAnimation(afterDelay: 0.5)
     }
-    
-    
-    
-    
     
     @objc func cancel() {
         
@@ -114,20 +90,12 @@ class ProfileViewController: UIViewController {
         let profileImageAnimation = UIViewPropertyAnimator(duration: 0.5, curve: .easeInOut) {
             self.header.addSubview(self.header.profileImage)
             self.header.profileImage.frame = .init(x: 16, y: 16, width: 100, height: 100)
-            
-            /*NSLayoutConstraint.activate([ self.header.profileImage.topAnchor.constraint(equalTo: self.header.topAnchor, constant: 16),
-             self.header.profileImage.leadingAnchor.constraint(equalTo: self.header.leadingAnchor, constant: 16),
-             self.header.profileImage.heightAnchor.constraint(equalToConstant: 100),
-             self.header.profileImage.widthAnchor.constraint(equalToConstant: 100)])
-             */
-            
-            
             self.header.profileImage.layer.cornerRadius = 50
             self.header.profileImage.layer.borderWidth = 3
             self.header.profileImage.layer.borderColor = UIColor.white.cgColor
         }
         
-        let         opacityBackgroundAnimation = UIViewPropertyAnimator(duration: 0.5, curve: .easeInOut) {
+        let opacityBackgroundAnimation = UIViewPropertyAnimator(duration: 0.5, curve: .easeInOut) {
             self.backgroundView1.alpha = 0
             self.rect.alpha = 0
         }
@@ -143,11 +111,8 @@ class ProfileViewController: UIViewController {
         navigationController?.navigationBar.isHidden = true
     }
     
-    
-    
     override func viewDidLoad() {
         super.viewDidLoad()
-        
         
         //animation
         self.header.addSubview(self.backgroundView1)
@@ -157,9 +122,6 @@ class ProfileViewController: UIViewController {
         
         self.rect.addSubview(self.cancelButton)
         self.cancelButton.frame = .init(x: self.view.frame.width - 20, y: 0, width: 20, height: 20)
-        
-        
-        
         
         tableView.showsVerticalScrollIndicator = false
         view.addSubview(tableView)
@@ -173,14 +135,13 @@ class ProfileViewController: UIViewController {
         ])
         
         tableView.register(PostTableViewCell.self, forCellReuseIdentifier: reuseId)
+        
         tableView.register(ProfileHeaderViewNew.self, forHeaderFooterViewReuseIdentifier: String(describing: ProfileHeaderViewNew.self))
         tableView.register(PhotosTableViewCell.self, forCellReuseIdentifier: String(describing: PhotosTableViewCell.self))
         tableView.dataSource = self
         tableView.delegate = self
     }
 }
-
-
 
 extension ProfileViewController: UITableViewDataSource {
     
@@ -189,35 +150,28 @@ extension ProfileViewController: UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        
         switch section {
         case 0:
             return 1
         case 1:
-            return Storage.arrayOfPosts.count
+            return StorageService.Storage.arrayOfPosts.count
         default:
             break
         }
         return section
     }
     
-    //ПРОБЛЕМА С ПЕРЕИСПОЛЬЗОВАНИЕМ ЯЧЕЕК!!!!! - решена🦆
+    
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        
         if indexPath.section == 0 {
-            
             let cell = tableView.dequeueReusableCell(withIdentifier: String(describing: PhotosTableViewCell.self), for: indexPath) as! PhotosTableViewCell
             return cell
             
         } else {
             
             let cell = tableView.dequeueReusableCell(withIdentifier: reuseId, for: indexPath) as! PostTableViewCell
-            // let cell = PostTableViewCell()
-            
             cell.post = Storage.arrayOfPosts[indexPath.row]
             return cell
-            
-            
         }
     }
 }
@@ -225,18 +179,11 @@ extension ProfileViewController: UITableViewDataSource {
 extension ProfileViewController: UITableViewDelegate {
     
     func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
-        /*  guard let headerView: ProfileHeaderViewNew = tableView.dequeueReusableHeaderFooterView(withIdentifier: String(describing: ProfileHeaderViewNew.self)) as? ProfileHeaderViewNew else { return nil }
-         print("пока рабоатет,перекрестились")*/
-        
-        
-        //создал жест и добавил его на profileImage
         let tapGest = UITapGestureRecognizer(target: self, action: #selector(tap))
         header.profileImage.addGestureRecognizer(tapGest)
         
         let cancelGest = UITapGestureRecognizer(target: self, action: #selector(cancel))
         cancelButton.addGestureRecognizer(cancelGest)
-        //  rect.addGestureRecognizer(cancelGest)
-        
         switch section {
         case 0:
             return header
@@ -248,7 +195,6 @@ extension ProfileViewController: UITableViewDelegate {
     
     
     func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
-        
         switch section {
         case 0:
             return 220
@@ -258,7 +204,6 @@ extension ProfileViewController: UITableViewDelegate {
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        
         switch indexPath.section {
         case 0:
             let photoViewController = PhotoViewController()

@@ -11,7 +11,6 @@ import UIKit
 
 let author = "Shirokov Aleksey"
 
-//я обернул все в класс и сделал очень-очень публичным
 public class Storage {
     
     public struct PostNew {
@@ -22,7 +21,6 @@ public class Storage {
         public let viewsCount: String
     }
     
-    
     public static let arrayOfPosts = [
         PostNew(author: author, description: "Напишу здесь немного рандомного текста из головы чтобы проверить как растягивается ячейка с большим описанием. Когда я был совсем маленьким,дедуля отвел меня в цирк,там было мнооого всего интереесного и бла бла бла, но сильнее всего мне запомнился полет радиоуправляемого самолета в антракте. Спустя 15 лет я обзавелся собственным кружком по авиамоделированию :)", image: #imageLiteral(resourceName: "plane"), likes: "Likes: 29", viewsCount: "Views: 150"),
         PostNew(author: author, description: "Делаю барспин под строгинским мостом!", image: #imageLiteral(resourceName: "bar"), likes: "Likes: 20", viewsCount: "Views: 148"),
@@ -30,10 +28,7 @@ public class Storage {
         PostNew(author: author, description: "Мама говорит,что я красивый", image: #imageLiteral(resourceName: "park"), likes: "Likes: 12", viewsCount: "Views: 67")
     ]
     
-    
     //MARK: - Дальше хранение инфы для 0 ячейки в таблице и для экранчика с фото-коллекцией
-    
-    
     public static let photoCollection: [UIImage] = [
         UIImage(named: "1.png")!,
         UIImage(named: "2.png")!,
@@ -55,8 +50,5 @@ public class Storage {
         UIImage(named: "18.png")!,
         UIImage(named: "19.png")!,
         UIImage(named: "20.png")!
-        
     ]
-    
-    
 }
