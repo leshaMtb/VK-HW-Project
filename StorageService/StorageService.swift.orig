@@ -5,12 +5,21 @@
 //  Created by Apple on 24.05.2021.
 //  Copyright © 2021 Artem Novichkov. All rights reserved.
 //
+<<<<<<< HEAD
+/*
+=======
 
+>>>>>>> develop
 import UIKit
 
 let author = "Shirokov Aleksey"
 
-<<<<<<< HEAD:Navigation/Profile/Storage/Storage.swift
+<<<<<<< HEAD
+=======
+<<<<<<<< HEAD:StorageService/StorageService.swift
+public class Storage {
+========
+>>>>>>> develop
 struct PostNew {
     let author: String
     let description: String
@@ -18,9 +27,10 @@ struct PostNew {
     let likes: String
     let viewsCount: String
 }
+<<<<<<< HEAD
 =======
-public class Storage {
->>>>>>> develop:StorageService/StorageService.swift
+>>>>>>>> develop:Navigation/Profile/Storage/Storage.swift
+>>>>>>> develop
 
     public static let arrayOfPosts = [
         PostNew(author: author, description: "Напишу здесь немного рандомного текста из головы чтобы проверить как растягивается ячейка с большим описанием. Когда я был совсем маленьким,дедуля отвел меня в цирк,там было мнооого всего интереесного и бла бла бла, но сильнее всего мне запомнился полет радиоуправляемого самолета в антракте. Спустя 15 лет я обзавелся собственным кружком по авиамоделированию :)", image: #imageLiteral(resourceName: "plane"), likes: "Likes: 29", viewsCount: "Views: 150"),
@@ -53,3 +63,7 @@ public class Storage {
         UIImage(named: "20.png")!
     ]
 }
+<<<<<<< HEAD
+*/
+=======
+>>>>>>> develop

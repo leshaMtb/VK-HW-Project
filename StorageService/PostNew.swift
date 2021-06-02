@@ -11,7 +11,7 @@ import UIKit
 public struct PostNew {
     public let author: String
     public let description: String
-    public let image: UIImage
+    public var image: UIImage
     public let likes: String
     public let viewsCount: String
 }

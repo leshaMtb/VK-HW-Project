@@ -6,9 +6,13 @@
 //  Copyright © 2021 Artem Novichkov. All rights reserved.
 //
 
+
 import UIKit
+<<<<<<< HEAD
 import iOSIntPackage
+=======
 import StorageService
+>>>>>>> develop
 
 class ProfileViewController: UIViewController {
     
@@ -38,7 +42,8 @@ class ProfileViewController: UIViewController {
         rect.alpha = 0
         return rect
     }()
-
+    
+    
     var cancelButton: UIButton = {
         let cancelButton = UIButton(type: .close)
         cancelButton.alpha = 0
@@ -48,12 +53,15 @@ class ProfileViewController: UIViewController {
     }()
     
     @objc func tap() {
-
+        
+        // анимирую прозрачность своих двух вьюх
         let opacityBackgroundAnimation = UIViewPropertyAnimator(duration: 0.5, curve: .easeInOut) {
             self.backgroundView1.alpha = 0.5
             self.rect.alpha = 1
         }
-
+        
+        
+        //здесь у мненя аватар едет на центр экрана,меняет cornerRadius на 0 и увеличивается
         let profileImageAnimation = UIViewPropertyAnimator(duration: 0.5, curve: .easeInOut) {
             
             self.rect.addSubview(self.header.profileImage)
@@ -78,6 +86,7 @@ class ProfileViewController: UIViewController {
     }
     
     @objc func cancel() {
+        
         let opacityButtonAnimation = UIViewPropertyAnimator(duration: 0.3, curve: .easeInOut) {
             self.cancelButton.alpha = 0
         }
@@ -108,7 +117,8 @@ class ProfileViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        
+        //animation
         self.header.addSubview(self.backgroundView1)
         self.backgroundView1.frame = .init(x: 0, y: 0, width: self.view.frame.width, height: self.view.frame.height)
         self.header.addSubview(self.rect)
@@ -163,7 +173,12 @@ extension ProfileViewController: UITableViewDataSource {
         } else {
             
             let cell = tableView.dequeueReusableCell(withIdentifier: reuseId, for: indexPath) as! PostTableViewCell
+<<<<<<< HEAD
+           
             cell.post = Storage.arrayOfPosts[indexPath.row]
+            
+            //делаю фильтр для постов с помощью фреймворка iosintpackage
+            //работает, хе-хе 🦆
             let image = cell.post?.image
             if image != nil {
                 let gg = ImageProcessor()
@@ -172,6 +187,9 @@ extension ProfileViewController: UITableViewDataSource {
                 }
             }
         
+=======
+            cell.post = Storage.arrayOfPosts[indexPath.row]
+>>>>>>> develop
             return cell
         }
     }

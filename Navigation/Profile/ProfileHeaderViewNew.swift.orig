@@ -25,6 +25,11 @@ class ProfileHeaderViewNew: UITableViewHeaderFooterView {
     
     lazy var profileImage: UIImageView = {
         let profileImage1 = UIImageView()
+<<<<<<< HEAD
+        
+        // interection включен!!!!!!!
+=======
+>>>>>>> develop
         profileImage1.isUserInteractionEnabled = true
         profileImage1.image = #imageLiteral(resourceName: " Аватарочка-1")
         profileImage1.layer.cornerRadius = 50
@@ -120,6 +125,53 @@ class ProfileHeaderViewNew: UITableViewHeaderFooterView {
         profileHeaderView.addSubview(statusTextField)
         profileHeaderView.addSubview(statusButton)
         
+<<<<<<< HEAD
+        //верстка подложки хедера
+        profileHeaderView.snp.makeConstraints { profileHeaderView in
+            profileHeaderView.top.equalToSuperview()
+            profileHeaderView.left.right.equalToSuperview()
+            profileHeaderView.height.equalTo(220)
+        }
+        
+        //верста аватарки
+        profileImage.snp.makeConstraints { profileImage in
+            profileImage.left.top.equalTo(16)
+            profileImage.height.width.equalTo(100)
+        }
+        
+        //верстка имя
+        profileFullName.snp.makeConstraints { profileFullName in
+            profileFullName.top.equalTo(27)
+            profileFullName.height.equalTo(30)
+            profileFullName.left.equalTo(132)
+            profileFullName.right.equalTo(-16)
+        }
+        
+       //верстка статус
+        status.snp.makeConstraints { status in
+            status.top.equalTo(profileFullName).inset(40)
+            status.left.equalTo(132)
+            status.right.equalTo(-16)
+            status.height.equalTo(40)
+        }
+        
+        //верстка текстфилда
+        statusTextField.snp.makeConstraints { statusTextField in
+            statusTextField.left.equalTo(132)
+            statusTextField.right.equalTo(-16)
+            statusTextField.top.equalTo(status).inset(40)
+            statusTextField.height.equalTo(40)
+        }
+        
+        //кнопочка
+        statusButton.snp.makeConstraints { statusButton in
+            statusButton.top.equalTo(statusTextField).inset(55)
+            statusButton.height.equalTo(50)
+            statusButton.left.equalTo(16)
+            statusButton.right.equalTo(-16)
+        }
+    
+=======
         NSLayoutConstraint.activate([
             
             profileHeaderView.topAnchor.constraint(equalTo: contentView.topAnchor),
@@ -153,6 +205,7 @@ class ProfileHeaderViewNew: UITableViewHeaderFooterView {
             statusButton.leftAnchor.constraint(equalTo: profileHeaderView.leftAnchor, constant: 16),
             statusButton.heightAnchor.constraint(equalToConstant: 50)
         ])
+>>>>>>> develop
     }
     
 }

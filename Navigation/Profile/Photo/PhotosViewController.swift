@@ -7,19 +7,20 @@
 //
 
 import UIKit
+import StorageService
 
 class PhotoViewController: UIViewController {
     
     lazy var collectionView = UICollectionView(frame: .zero, collectionViewLayout: UICollectionViewFlowLayout())
-
+    
     override func viewWillAppear(_ animated: Bool) {
-         super .viewWillAppear(animated)
-         navigationController?.navigationBar.isHidden = false
-     }
+        super .viewWillAppear(animated)
+        navigationController?.navigationBar.isHidden = false
+    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        
         collectionView.showsVerticalScrollIndicator = false
         collectionView.translatesAutoresizingMaskIntoConstraints = false
         view.addSubview(collectionView)
@@ -29,7 +30,7 @@ class PhotoViewController: UIViewController {
         
         collectionView.delegate = self
         collectionView.dataSource = self
-    
+        
         NSLayoutConstraint.activate([
             collectionView.topAnchor.constraint(equalTo: view.topAnchor),
             collectionView.leftAnchor.constraint(equalTo: view.leftAnchor),
@@ -42,12 +43,12 @@ class PhotoViewController: UIViewController {
 extension PhotoViewController: UICollectionViewDataSource {
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return PhotoGallery.photoCollection.count
+        return Storage.photoCollection.count
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: String(describing: PhotoCollectionViewCell.self), for: indexPath) as! PhotoCollectionViewCell
-        cell.photo.image = PhotoGallery.photoCollection[indexPath.item]
+        cell.photo.image = Storage.photoCollection[indexPath.item]
         return cell
     }
 }
