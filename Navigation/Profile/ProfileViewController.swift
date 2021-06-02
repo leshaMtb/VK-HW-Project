@@ -164,10 +164,10 @@ extension ProfileViewController: UITableViewDataSource {
             
             let cell = tableView.dequeueReusableCell(withIdentifier: reuseId, for: indexPath) as! PostTableViewCell
             cell.post = Storage.arrayOfPosts[indexPath.row]
-            let image = cell.post?.image
-            if image != nil {
-                let gg = ImageProcessor()
-                gg.processImage(sourceImage: image!, filter: .monochrome(color: .yellow, intensity: 0.2)) { image in
+            
+            if let image = cell.post?.image {
+                let imageProcessor = ImageProcessor()
+                imageProcessor.processImage(sourceImage: image, filter: .monochrome(color: .yellow, intensity: 0.2)) { image in
                     cell.post?.image = image!
                 }
             }

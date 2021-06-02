@@ -103,7 +103,7 @@ class ProfileHeaderViewNew: UITableViewHeaderFooterView {
     
     override init(reuseIdentifier: String?) {
         super.init(reuseIdentifier: reuseIdentifier)
-        createUiWithSnapKit()
+        setupViews()
     }
     
     required init?(coder: NSCoder) {
@@ -111,7 +111,7 @@ class ProfileHeaderViewNew: UITableViewHeaderFooterView {
     }
     
 
-    func createUiWithSnapKit() {
+    func setupViews() {
         
         contentView.addSubview(profileHeaderView)
         profileHeaderView.addSubview(profileImage)
