@@ -109,7 +109,10 @@ class ProfileHeaderViewNew: UITableViewHeaderFooterView {
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
-    
+
+    private enum Constants {
+    static let sideInset: CGFloat = 16.0
+    }
 
     func setupViews() {
         
@@ -120,39 +123,42 @@ class ProfileHeaderViewNew: UITableViewHeaderFooterView {
         profileHeaderView.addSubview(statusTextField)
         profileHeaderView.addSubview(statusButton)
         
-        NSLayoutConstraint.activate([
-            
-            profileHeaderView.topAnchor.constraint(equalTo: contentView.topAnchor),
-            profileHeaderView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor),
-            profileHeaderView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor),
-            profileHeaderView.heightAnchor.constraint(equalToConstant: 220),
-            
-            profileImage.topAnchor.constraint(equalTo: profileHeaderView.topAnchor, constant: 16),
-            profileImage.leadingAnchor.constraint(equalTo: profileHeaderView.leadingAnchor, constant: 16),
-            profileImage.heightAnchor.constraint(equalToConstant: 100),
-            
-            profileImage.widthAnchor.constraint(equalToConstant: 100),
-            
-            profileFullName.topAnchor.constraint(equalTo: profileHeaderView.topAnchor, constant: 27),
-            profileFullName.heightAnchor.constraint(equalToConstant: 30),
-            profileFullName.leadingAnchor.constraint(equalTo: profileHeaderView.leadingAnchor, constant: 132),
-            profileFullName.widthAnchor.constraint(equalToConstant: 180),
-            
-            status.topAnchor.constraint(equalTo: profileFullName.bottomAnchor, constant: 25),
-            status.leadingAnchor.constraint(equalTo: profileHeaderView.leadingAnchor, constant: 132),
-            status.rightAnchor.constraint(equalTo: profileHeaderView.rightAnchor, constant: -16),
-            status.heightAnchor.constraint(equalToConstant: 14),
-            
-            statusTextField.topAnchor.constraint(equalTo: status.bottomAnchor, constant: 10),
-            statusTextField.heightAnchor.constraint(equalToConstant: 40),
-            statusTextField.leadingAnchor.constraint(equalTo: profileHeaderView.leadingAnchor, constant: 132),
-            statusTextField.rightAnchor.constraint(equalTo: profileHeaderView.rightAnchor, constant: -16),
-            
-            statusButton.topAnchor.constraint(equalTo: statusTextField.bottomAnchor, constant: 16),
-            statusButton.rightAnchor.constraint(equalTo: profileHeaderView.rightAnchor, constant: -16),
-            statusButton.leftAnchor.constraint(equalTo: profileHeaderView.leftAnchor, constant: 16),
-            statusButton.heightAnchor.constraint(equalToConstant: 50)
-        ])
+        profileHeaderView.snp.makeConstraints { profileHeaderView in
+            profileHeaderView.left.right.top.equalToSuperview()
+            profileHeaderView.height.equalTo(220)
+        }
+
+        profileImage.snp.makeConstraints { profileImage in
+            profileImage.left.top.equalTo(Constants.sideInset)
+            profileImage.height.width.equalTo(100)
+        }
+
+        profileFullName.snp.makeConstraints { profileFullName in
+            profileFullName.top.equalTo(27)
+            profileFullName.height.equalTo(30)
+            profileFullName.left.equalTo(132)
+            profileFullName.right.equalTo(-Constants.sideInset)
+        }
+
+        status.snp.makeConstraints { status in
+            status.top.equalTo(profileFullName).inset(40)
+            status.left.equalTo(132)
+            status.right.equalTo(-Constants.sideInset)
+            status.height.equalTo(40)
+        }
+
+        statusTextField.snp.makeConstraints { statusTextField in
+            statusTextField.left.equalTo(132)
+            statusTextField.right.equalTo(-Constants.sideInset)
+            statusTextField.top.equalTo(status).inset(40)
+            statusTextField.height.equalTo(40)
+        }
+
+        statusButton.snp.makeConstraints { statusButton in
+            statusButton.top.equalTo(statusTextField).inset(55)
+            statusButton.height.equalTo(50)
+            statusButton.left.equalTo(Constants.sideInset)
+            statusButton.right.equalTo(-Constants.sideInset)
+        }
     }
-    
 }
