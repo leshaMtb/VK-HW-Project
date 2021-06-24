@@ -12,19 +12,19 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
 
     var window: UIWindow?
 
-    var loginIsnpector: LoginInspector?
+    private let myLoginFactory = MyLoginFactory()
+    private let gg = LoginInspector()
 
     func scene(_ scene: UIScene, willConnectTo session: UISceneSession, options connectionOptions: UIScene.ConnectionOptions) {
 
-        loginIsnpector = LoginInspector()
-        
         guard let _ = (scene as? UIWindowScene) else { return }
 
-        // инициализация LoginInspector
 
         if let tabController = window?.rootViewController as? UITabBarController, let loginNavigation = tabController.viewControllers?.last as? UINavigationController,
            let loginController = loginNavigation.viewControllers.first as? LogInViewController {
-            loginController.delegate1 = loginIsnpector
+            
+            // loginController.delegate1 = myLoginFactory.setLoginInspector()
+            loginController.delegate1 = myLoginFactory.setLoginInspector()
         }
     }
 

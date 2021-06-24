@@ -18,6 +18,7 @@ import UIKit
 class LogInViewController: UIViewController {
 
     weak var delegate1: LoginViewControllerDelegate?
+   // weak var delegate1: LoginFactory?
 
     private let scrollView: UIScrollView = {
         let scrollView = UIScrollView()
@@ -187,23 +188,6 @@ class LogInViewController: UIViewController {
             logInButton.bottomAnchor.constraint(equalTo: viewOnScroll.bottomAnchor)
         ])
     }
-/*
-    @objc private func showProfileViewController() {
-        
-        emailTextField.endEditing(true)
-        passwordTextField.endEditing(true)
-        
-        let testUser = TestUserService()
-        let currentUser = CurrentUserService()
-        guard let loginText = emailTextField.text else { return }
-        #if DEBUG
-        let profileVC = ProfileViewController(userService: testUser, user: loginText)
-        #else
-        let profileVC = ProfileViewController(userService: currentUser, user: loginText)
-        #endif
-        show(profileVC, sender: (Any).self)
-    }*/
-
 
     @objc private func showProfileViewController() {
 
@@ -211,15 +195,9 @@ class LogInViewController: UIViewController {
         print(self.delegate1?.check(parameter: emailTextField.text!.hash + passwordTextField.text!.hash) as Any)
         
         if self.delegate1?.check(parameter: emailTextField.text!.hash + passwordTextField.text!.hash) == true {
-            print("тут логика открытия контроллера")
-
-            //let login = emailTextField.text ?? "OBAMA"
-            //проблемный кусочек
-           // emailTextField.text = ""
-         //  passwordTextField.text = ""
+            print("верный пароль")
 
             guard let loginText = emailTextField.text else { return }
-
             #if DEBUG
             let userService = TestUserService()
             #else
@@ -231,7 +209,7 @@ class LogInViewController: UIViewController {
             show(profileVC, sender: (Any).self)
 
         } else {
-            print("тут обработка ошибочного ввода логиня или пароля на экране ERROR")
+            print("неверный пароль")
 
             emailTextField.text = ""
             passwordTextField.text = ""
@@ -251,16 +229,13 @@ class LogInViewController: UIViewController {
 
 
         }
-
-      //  emailTextField.endEditing(true)
-      //  passwordTextField.endEditing(true)
     }
 }
 
 
 //add checker sungletone
 class Checker {
-    //чекер это синглтон
+    
     static let checker = Checker()
 
     private let loginHash = "Aleksey".hash
@@ -268,17 +243,16 @@ class Checker {
 
     func checkLoginPassword(parameter: Int) -> Bool {
         if parameter == loginHash + passwordHash {
-            print("-Данные введены корректно✌")
+            print("Чекер: все ок")
             return true
         } else {
-            print("-Данные введены некорректно🗿")
+            print("Чекер: не ок🗿")
             return false
         }
     }
 }
 
 
-//add protocol and logininspector
 
 protocol LoginViewControllerDelegate: class {
     func check(parameter: Int )-> Bool
@@ -286,9 +260,23 @@ protocol LoginViewControllerDelegate: class {
 
 class LoginInspector: LoginViewControllerDelegate {
     func check(parameter: Int) -> Bool {
-        print("ВЫПОЛНЯЕТСЯ ДЕЛЕГАТ,РАБОТАЕТ ЛОГИНИНСПЕКТОР,ЗВОНИМ В ЧЕКЕР КОТОРЫЙ СИНГЛТОН,ВСЕМ ЛЕЖАТЬ")
+        print("звоним в синглтон чекер")
         return Checker.checker.checkLoginPassword(parameter: parameter)
     }
+}
 
 
+
+protocol LoginFactory {
+    func setLoginInspector() -> LoginInspector
+}
+
+
+struct MyLoginFactory: LoginFactory {
+
+    private let loginInspector = LoginInspector()
+
+    func setLoginInspector() -> LoginInspector {
+        return loginInspector
+    }
 }
