@@ -17,7 +17,7 @@ import UIKit
 
 class LogInViewController: UIViewController {
 
-    var delegate1: LoginViewControllerDelegate?
+    weak var delegate1: LoginViewControllerDelegate?
 
     private let scrollView: UIScrollView = {
         let scrollView = UIScrollView()
@@ -212,33 +212,49 @@ class LogInViewController: UIViewController {
         
         if self.delegate1?.check(parameter: emailTextField.text!.hash + passwordTextField.text!.hash) == true {
             print("тут логика открытия контроллера")
-/*
+
+            //let login = emailTextField.text ?? "OBAMA"
+            //проблемный кусочек
+           // emailTextField.text = ""
+         //  passwordTextField.text = ""
+
+            guard let loginText = emailTextField.text else { return }
+
+            #if DEBUG
+            let userService = TestUserService()
+            #else
+            let userService = CurrentUserService()
+            #endif
+            userService.userName(name: loginText)
+            let profileVC = ProfileViewController(userService: userService, user: loginText)
+
+            show(profileVC, sender: (Any).self)
+
+        } else {
+            print("тут обработка ошибочного ввода логиня или пароля на экране ERROR")
+
+            emailTextField.text = ""
+            passwordTextField.text = ""
             emailTextField.endEditing(true)
             passwordTextField.endEditing(true)
 
-            let testUser = TestUserService()
-            let currentUser = CurrentUserService()
-            guard let loginText = emailTextField.text else { return }
-            #if DEBUG
-            let profileVC = ProfileViewController(userService: testUser, user: loginText)
-            #else
-            let profileVC = ProfileViewController(userService: currentUser, user: loginText)
-            #endif
-            show(profileVC, sender: (Any).self)
-*/
-        } else {
-            print("тут обработка ошибочного ввода логиня или пароля на экране ERROR")
+            let alertController = UIAlertController(title: "Неверный логин или пароль", message: "Побробуйте ещё раз", preferredStyle: .alert)
+                       let okAction = UIAlertAction(title: "ОК", style: .default) { _ in
+                           print("Pressed Ok button on alert on login")
+
+                        self.emailTextField.endEditing(true)
+                       self.passwordTextField.endEditing(true)
+
+                       }
+                       alertController.addAction(okAction)
+                       self.present(alertController, animated: true, completion: nil)
+
+
         }
 
       //  emailTextField.endEditing(true)
       //  passwordTextField.endEditing(true)
-
-      //  let storybord = UIStoryboard(name: "Main", bundle: nil)
-       // let vc = storybord.instantiateViewController(withIdentifier: "profile")
-       // show(vc, sender: (Any).self)
     }
-
-
 }
 
 

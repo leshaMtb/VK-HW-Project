@@ -15,27 +15,20 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
     var loginIsnpector: LoginInspector?
 
     func scene(_ scene: UIScene, willConnectTo session: UISceneSession, options connectionOptions: UIScene.ConnectionOptions) {
-        let window: UIWindow?
 
-        var loginIsnpector: LoginInspector?
-        // var loginVC: LogInViewController?
+        loginIsnpector = LoginInspector()
+        
+        guard let _ = (scene as? UIWindowScene) else { return }
 
-        func scene(_ scene: UIScene, willConnectTo session: UISceneSession, options connectionOptions: UIScene.ConnectionOptions) {
+        // инициализация LoginInspector
 
-            loginIsnpector = LoginInspector()
-           // loginIsnpector = LoginInspector()
-            // loginVC = LogInViewController()
-            // loginVC?.delegate1 = loginIsnpector
-            guard let _ = (scene as? UIWindowScene) else { return }
-
-            // инициализация LoginInspector
-
-            if let tabController = window?.rootViewController as? UITabBarController, let loginNavigation = tabController.viewControllers?.last as? UINavigationController, let loginController = loginNavigation.viewControllers.first as? LogInViewController {
-                loginController.delegate1 = loginIsnpector
-            }
+        if let tabController = window?.rootViewController as? UITabBarController, let loginNavigation = tabController.viewControllers?.last as? UINavigationController,
+           let loginController = loginNavigation.viewControllers.first as? LogInViewController {
+            loginController.delegate1 = loginIsnpector
         }
-
     }
+
+
     func sceneDidDisconnect(_ scene: UIScene) {
         // Called as the scene is being released by the system.
         // This occurs shortly after the scene enters the background, or when its session is discarded.

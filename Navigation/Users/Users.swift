@@ -28,14 +28,16 @@ final class User {
 
 class CurrentUserService: UserService {
     let userAleksey = User(name: "Aleksey Shirokov✌️" , avatar: #imageLiteral(resourceName: " Аватарочка-1"), status: "Это релиз сборка")
+
     func userName(name: String) -> User {
-        //это лишняя проверка которой не должжно быть, остатки из предыдущего дз task3
+        print("В юзерСервис передали \(name) ")
+
         if name == "Aleksey" {
             return userAleksey
         } else {
-            //выполняю task4 сюда ровалиться по идее нереально
             return User(name: "Собака Собака", avatar: #imageLiteral(resourceName: "dog"), status: "я милый пес")
         }
+        return userAleksey
     }
 }
 
