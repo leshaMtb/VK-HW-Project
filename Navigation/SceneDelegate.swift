@@ -12,14 +12,30 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
 
     var window: UIWindow?
 
+    var loginIsnpector: LoginInspector?
 
     func scene(_ scene: UIScene, willConnectTo session: UISceneSession, options connectionOptions: UIScene.ConnectionOptions) {
-        // Use this method to optionally configure and attach the UIWindow `window` to the provided UIWindowScene `scene`.
-        // If using a storyboard, the `window` property will automatically be initialized and attached to the scene.
-        // This delegate does not imply the connecting scene or session are new (see `application:configurationForConnectingSceneSession` instead).
-        guard let _ = (scene as? UIWindowScene) else { return }
-    }
+        let window: UIWindow?
 
+        var loginIsnpector: LoginInspector?
+        // var loginVC: LogInViewController?
+
+        func scene(_ scene: UIScene, willConnectTo session: UISceneSession, options connectionOptions: UIScene.ConnectionOptions) {
+
+            loginIsnpector = LoginInspector()
+           // loginIsnpector = LoginInspector()
+            // loginVC = LogInViewController()
+            // loginVC?.delegate1 = loginIsnpector
+            guard let _ = (scene as? UIWindowScene) else { return }
+
+            // инициализация LoginInspector
+
+            if let tabController = window?.rootViewController as? UITabBarController, let loginNavigation = tabController.viewControllers?.last as? UINavigationController, let loginController = loginNavigation.viewControllers.first as? LogInViewController {
+                loginController.delegate1 = loginIsnpector
+            }
+        }
+
+    }
     func sceneDidDisconnect(_ scene: UIScene) {
         // Called as the scene is being released by the system.
         // This occurs shortly after the scene enters the background, or when its session is discarded.

@@ -17,6 +17,8 @@ import UIKit
 
 class LogInViewController: UIViewController {
 
+    var delegate1: LoginViewControllerDelegate?
+
     private let scrollView: UIScrollView = {
         let scrollView = UIScrollView()
         scrollView.translatesAutoresizingMaskIntoConstraints = false
@@ -124,6 +126,8 @@ class LogInViewController: UIViewController {
     override func viewDidLoad() {
         super .viewDidLoad()
 
+       // self.delegate1 = LoginInspector()
+
         self.navigationController?.navigationBar.isHidden = true
         self.view.backgroundColor = .white
 
@@ -183,7 +187,7 @@ class LogInViewController: UIViewController {
             logInButton.bottomAnchor.constraint(equalTo: viewOnScroll.bottomAnchor)
         ])
     }
-
+/*
     @objc private func showProfileViewController() {
         
         emailTextField.endEditing(true)
@@ -198,6 +202,77 @@ class LogInViewController: UIViewController {
         let profileVC = ProfileViewController(userService: currentUser, user: loginText)
         #endif
         show(profileVC, sender: (Any).self)
+    }*/
+
+
+    @objc private func showProfileViewController() {
+
+        print("ДАННЫЕ ВВЕДЕНЫ ПРАВИЛЬНО?")
+        print(self.delegate1?.check(parameter: emailTextField.text!.hash + passwordTextField.text!.hash) as Any)
+        
+        if self.delegate1?.check(parameter: emailTextField.text!.hash + passwordTextField.text!.hash) == true {
+            print("тут логика открытия контроллера")
+/*
+            emailTextField.endEditing(true)
+            passwordTextField.endEditing(true)
+
+            let testUser = TestUserService()
+            let currentUser = CurrentUserService()
+            guard let loginText = emailTextField.text else { return }
+            #if DEBUG
+            let profileVC = ProfileViewController(userService: testUser, user: loginText)
+            #else
+            let profileVC = ProfileViewController(userService: currentUser, user: loginText)
+            #endif
+            show(profileVC, sender: (Any).self)
+*/
+        } else {
+            print("тут обработка ошибочного ввода логиня или пароля на экране ERROR")
+        }
+
+      //  emailTextField.endEditing(true)
+      //  passwordTextField.endEditing(true)
+
+      //  let storybord = UIStoryboard(name: "Main", bundle: nil)
+       // let vc = storybord.instantiateViewController(withIdentifier: "profile")
+       // show(vc, sender: (Any).self)
     }
+
+
+}
+
+
+//add checker sungletone
+class Checker {
+    //чекер это синглтон
+    static let checker = Checker()
+
+    private let loginHash = "Aleksey".hash
+    private let passwordHash = "12345".hash
+
+    func checkLoginPassword(parameter: Int) -> Bool {
+        if parameter == loginHash + passwordHash {
+            print("-Данные введены корректно✌")
+            return true
+        } else {
+            print("-Данные введены некорректно🗿")
+            return false
+        }
+    }
+}
+
+
+//add protocol and logininspector
+
+protocol LoginViewControllerDelegate: class {
+    func check(parameter: Int )-> Bool
+}
+
+class LoginInspector: LoginViewControllerDelegate {
+    func check(parameter: Int) -> Bool {
+        print("ВЫПОЛНЯЕТСЯ ДЕЛЕГАТ,РАБОТАЕТ ЛОГИНИНСПЕКТОР,ЗВОНИМ В ЧЕКЕР КОТОРЫЙ СИНГЛТОН,ВСЕМ ЛЕЖАТЬ")
+        return Checker.checker.checkLoginPassword(parameter: parameter)
+    }
+
 
 }

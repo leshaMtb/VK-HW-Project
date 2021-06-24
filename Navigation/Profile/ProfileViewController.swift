@@ -15,6 +15,7 @@ import StorageService
 class ProfileViewController: UIViewController {
 
     let userService: UserService
+    //я не помню почему, нов это свойство я передаю введенный логин. окей
     let user: String
 
     init(userService: UserService, user: String) {
