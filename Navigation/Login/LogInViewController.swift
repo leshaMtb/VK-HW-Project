@@ -18,7 +18,6 @@ import UIKit
 class LogInViewController: UIViewController {
 
     weak var delegate1: LoginViewControllerDelegate?
-   // weak var delegate1: LoginFactory?
 
     private let scrollView: UIScrollView = {
         let scrollView = UIScrollView()
@@ -127,7 +126,6 @@ class LogInViewController: UIViewController {
     override func viewDidLoad() {
         super .viewDidLoad()
 
-       // self.delegate1 = LoginInspector()
 
         self.navigationController?.navigationBar.isHidden = true
         self.view.backgroundColor = .white
@@ -143,7 +141,6 @@ class LogInViewController: UIViewController {
         logInButton.addTarget(self, action: #selector(showProfileViewController), for: .touchUpInside)
         let defaultInset = 16
 
-        //активирую констрейнт лэйоут
         NSLayoutConstraint.activate([
             scrollView.topAnchor.constraint(equalTo: view.topAnchor),
             scrollView.rightAnchor.constraint(equalTo: view.rightAnchor),
@@ -226,8 +223,6 @@ class LogInViewController: UIViewController {
                        }
                        alertController.addAction(okAction)
                        self.present(alertController, animated: true, completion: nil)
-
-
         }
     }
 }
