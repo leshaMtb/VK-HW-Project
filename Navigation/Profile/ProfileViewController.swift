@@ -14,6 +14,10 @@ import StorageService
 
 class ProfileViewController: UIViewController {
 
+    private let facade = ImagePublisherFacade()
+    
+    var collection: [UIImage] = []
+
     let userService: UserService
    
     let user: String
@@ -125,7 +129,7 @@ class ProfileViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
-
+        
 
         view.backgroundColor = .white
         self.header.addSubview(self.backgroundView1)
@@ -227,6 +231,16 @@ extension ProfileViewController: UITableViewDelegate {
         switch indexPath.section {
         case 0:
             let photoViewController = PhotoViewController()
+
+
+
+            for i in Storage.photoCollection {
+                collection.append(i)
+            }
+
+            photoViewController.imagePublisherFacade = facade
+            photoViewController.imagePublisherFacade?.addImagesWithTimer(time: 0.3, repeat: 20, userImages: collection)
+
             navigationController?.pushViewController(photoViewController, animated: true)
         default:
             break
