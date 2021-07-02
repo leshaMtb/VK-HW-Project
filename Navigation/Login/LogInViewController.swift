@@ -77,19 +77,15 @@ class LogInViewController: UIViewController {
         return passwordTextField
     }()
 
-    private let logInButton: UIButton = {
-        let logInButton = UIButton()
+    private lazy var logInButton: CustomButton = {
+        let logInButton = CustomButton(titleText: "Log in", titleColor: .white, backgroundColor: .white, tapAction: showProfileViewController)
         logInButton.setBackgroundImage(#imageLiteral(resourceName: "blue_pixel"), for: .normal)
         logInButton.setTitleColor(.gray, for: .selected)
-        logInButton.setTitle("Log in", for: .normal)
         logInButton.clipsToBounds = true
         logInButton.layer.cornerRadius = 10
-        logInButton.translatesAutoresizingMaskIntoConstraints = false
+
         return logInButton
     }()
-
-
-
     // MARK: Keyboard notifications это скопированный блок кода
 
     //---------------------------------------------------------------------------------
@@ -110,10 +106,7 @@ class LogInViewController: UIViewController {
     // MARK: Actions
     @objc fileprivate func keyboardWillShow(notification: NSNotification) {
         if let keyboardSize = (notification.userInfo?[UIResponder.keyboardFrameEndUserInfoKey] as? NSValue)?.cgRectValue {
-
-            // scroll.contentInset.bottom = keyboardSize.height
             scrollView.verticalScrollIndicatorInsets = UIEdgeInsets(top: 0, left: 0, bottom: keyboardSize.height, right: 0)
-            //scrollView.contentOffset = CGPoint(x: 0, y: keyboardSize.height)
             scrollView.contentInset.bottom = keyboardSize.height
         }
     }
@@ -138,7 +131,7 @@ class LogInViewController: UIViewController {
         viewOnScroll.addSubview(emailTextField)
         viewOnScroll.addSubview(passwordTextField)
         viewOnScroll.addSubview(logInButton)
-        logInButton.addTarget(self, action: #selector(showProfileViewController), for: .touchUpInside)
+
         let defaultInset = 16
 
         NSLayoutConstraint.activate([
@@ -186,7 +179,7 @@ class LogInViewController: UIViewController {
         ])
     }
 
-    @objc private func showProfileViewController() {
+   private func showProfileViewController() {
 
         print("ДАННЫЕ ВВЕДЕНЫ ПРАВИЛЬНО?")
         print(self.delegate1?.check(parameter: emailTextField.text!.hash + passwordTextField.text!.hash) as Any)
@@ -226,7 +219,6 @@ class LogInViewController: UIViewController {
         }
     }
 }
-
 
 //add checker sungletone
 class Checker {
@@ -275,3 +267,4 @@ struct MyLoginFactory: LoginFactory {
         return loginInspector
     }
 }
+

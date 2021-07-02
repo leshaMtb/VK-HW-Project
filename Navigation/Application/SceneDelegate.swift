@@ -12,18 +12,46 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
 
     var window: UIWindow?
 
+    let publisher = Publisher()
+
     private let myLoginFactory = MyLoginFactory()
 
     func scene(_ scene: UIScene, willConnectTo session: UISceneSession, options connectionOptions: UIScene.ConnectionOptions) {
 
-        guard let _ = (scene as? UIWindowScene) else { return }
+        guard let windowScene = (scene as? UIWindowScene) else { return }
+
+        let rootTabBarController = RootTabBarController()
+        window?.rootViewController = rootTabBarController
+
+        let loginViewController = UINavigationController(rootViewController: LogInViewController())
+        let feedViewController = UINavigationController(rootViewController: FeedViewController())
+
+        loginViewController.tabBarItem = UITabBarItem.init(title: "Profile", image: UIImage(systemName: "person"), tag: 0)
+
+        feedViewController.tabBarItem = UITabBarItem.init(title: "Feed", image: UIImage(systemName: "house"), tag: 1)
+
+        window = UIWindow(windowScene: windowScene)
+
+        guard let window = window else { return }
+        window.rootViewController = rootTabBarController
+
+        window.makeKeyAndVisible()
+
+        rootTabBarController.viewControllers = [loginViewController,feedViewController]
+
+        guard let navigationController = rootTabBarController.viewControllers?.first as? UINavigationController,
+              let loginViewController1 = navigationController.viewControllers.first as? LogInViewController else { fatalError()}
+        loginViewController1.delegate1 = myLoginFactory.setLoginInspector()
 
 
-        if let tabController = window?.rootViewController as? UITabBarController, let loginNavigation = tabController.viewControllers?.last as? UINavigationController,
-           let loginController = loginNavigation.viewControllers.first as? LogInViewController {
-            loginController.delegate1 = myLoginFactory.setLoginInspector()
-        }
+
+        guard let navigationcontroller1 = rootTabBarController.viewControllers?.last as? UINavigationController,
+              let feedController = navigationcontroller1.viewControllers.first as? FeedViewController else { fatalError()}
+        feedController.publisher = publisher
+
     }
+
+
 
 
     func sceneDidDisconnect(_ scene: UIScene) {

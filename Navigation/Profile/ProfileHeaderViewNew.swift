@@ -13,7 +13,6 @@ class ProfileHeaderViewNew: UITableViewHeaderFooterView {
     
     var profileHeaderView: UIView! = {
         let headerView = UIView()
-        //task1.2
         #if DEBUG
         headerView.backgroundColor = .systemPink
         #else
@@ -71,18 +70,16 @@ class ProfileHeaderViewNew: UITableViewHeaderFooterView {
         return textField
     }()
     
-    var statusButton: UIButton = {
-        let button = UIButton(type: .system)
-        button.setTitle("Show status", for: .normal)
-        button.setTitleColor(.white, for: .normal)
-        button.backgroundColor = .systemBlue
+   lazy var statusButton: CustomButton = {
+        let button = CustomButton(titleText: "Show status", titleColor: .white, backgroundColor: .systemBlue, tapAction: buttonPressed)
+        button.setTitle("Show status1", for: .selected)
+        button.setTitleColor(.black, for: .selected)
         button.layer.cornerRadius = 4
         button.layer.shadowOffset = CGSize(width: 4, height: 4)
         button.layer.shadowRadius = 4
         button.layer.shadowColor = UIColor.black.cgColor
         button.layer.shadowOpacity = 0.7
         button.translatesAutoresizingMaskIntoConstraints = false
-        button.addTarget(self, action: #selector(buttonPressed), for: .touchUpInside)
         return button
     }()
     
