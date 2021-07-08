@@ -231,8 +231,6 @@ extension ProfileViewController: UITableViewDelegate {
         case 0:
             let photoViewController = PhotoViewController()
 
-
-
             for i in Storage.photoCollection {
                 collection.append(i)
             }

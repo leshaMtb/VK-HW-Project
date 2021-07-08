@@ -7,7 +7,7 @@
 //
 
 import UIKit
-//типо слой бизнес логики)
+//слой бизнес логики для FeedModule
 public class Publisher {
 
     let notificationCenter = NotificationCenter.default

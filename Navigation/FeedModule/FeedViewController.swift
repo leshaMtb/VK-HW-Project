@@ -11,7 +11,16 @@ import SnapKit
 
 class FeedViewController: UIViewController {
 
-    var publisher: Publisher?
+    let viewModel: FeedViewOutput?
+
+    init(viewModel: FeedViewOutput) {
+        self.viewModel = viewModel
+        super.init(nibName: nil, bundle: nil)
+    }
+
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
 
     let textFieldForCheckWord: CustomTextField = {
         let textFieldForCheckWord = CustomTextField(bgColor: .white, placeHolder: " CustomTextField", sizeOfText: 20)
@@ -38,7 +47,6 @@ class FeedViewController: UIViewController {
         let label = UILabel()
         label.text = "Привет"
         label.font = UIFont.systemFont(ofSize: 20)
-        label.textColor = .gray
         label.textAlignment = .center
         label.backgroundColor = .white
         label.layer.borderWidth = 3
@@ -49,24 +57,21 @@ class FeedViewController: UIViewController {
         return label
     }()
 
-    func checkWordAtTap() {
-        if textFieldForCheckWord.text != nil && textFieldForCheckWord.text?.count != 0 {
-            publisher?.checkWord(word: textFieldForCheckWord.text!)
-
-        }
+    //это костыль чтобы разбудить FeedViewModel сразу при открытии, иначе с первого клика по кнопке лэйбл не меняет цвет(вью слой берет его до того,как вьюмодель его даст)
+    override func viewWillAppear(_ animated: Bool) {
+        viewModel?.check(word: "")
     }
 
-    override func viewDidDisappear(_ animated: Bool) {
-        super.viewDidDisappear(animated)
-        NotificationCenter.default.removeObserver(self, name: NSNotification.Name(rawValue: "true"), object: nil)
-        NotificationCenter.default.removeObserver(self, name: NSNotification.Name(rawValue: "false"), object: nil)
+    func checkWordAtTap() {
+        if textFieldForCheckWord.text != nil {
+            viewModel?.check(word: textFieldForCheckWord.text!)
+        }
+        label.textColor = viewModel?.color
+        label.layer.borderColor = viewModel?.color?.cgColor
     }
 
     override func viewDidLoad() {
         super.viewDidLoad()
-
-        NotificationCenter.default.addObserver(self, selector: #selector(trueSelector), name: NSNotification.Name(rawValue: "true") , object: nil)
-        NotificationCenter.default.addObserver(self, selector: #selector(falseSelector), name: NSNotification.Name(rawValue: "false") , object: nil)
 
         view.backgroundColor = .black
         view.addSubview(label)
@@ -93,15 +98,5 @@ class FeedViewController: UIViewController {
             button.width.equalTo(200)
             button.centerX.equalTo(view)
         }
-    }
-
-    @objc func trueSelector() {
-        label.textColor = .green
-        label.layer.borderColor = UIColor.green.cgColor
-    }
-
-    @objc func falseSelector() {
-        label.textColor = .red
-        label.layer.borderColor = UIColor.red.cgColor
     }
 }
