@@ -18,6 +18,10 @@ class FeedCoordinator {
         factory.makeFeedViewModel()
     }()
 
+    private lazy var greenModule = {
+        factory.makeGreenViewModel()
+    }()
+
     init(navigation: UINavigationController,
          factory: ControllerFactory) {
         self.navigationController = navigation
@@ -25,6 +29,17 @@ class FeedCoordinator {
     }
 
     func start() {
+        feedsModule.viewModel.showNext = {
+
+            guard self.configNewVC() != nil else { return }
+
+            let greenCoordinator = GreenCoordinator(navigation: self.navigationController, factory: self.factory)
+            greenCoordinator.start1()
+        }
         navigationController.pushViewController(feedsModule.controller, animated: true)
+    }
+
+   func configNewVC() {
+      factory.makeGreenViewModel()
     }
 }

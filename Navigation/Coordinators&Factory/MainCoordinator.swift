@@ -11,22 +11,28 @@ import UIKit
 class MainCoordinator {
     
     let tabBarController: TabBarController
-    
+
     let factory1 = ControllerFactoryImpl()
     
     let publisher = Publisher()
-    
+
     init() {
         tabBarController = TabBarController()
+
         
         let loginViewController = configLoginController()
         let feedCoordinator = configFeedCoordinator()
+        let greenCoordinator = confinGreenCoordinator()
+
         
-        tabBarController.viewControllers = [loginViewController,feedCoordinator.navigationController]
+       tabBarController.viewControllers = [loginViewController,feedCoordinator.navigationController]
+
         loginViewController.tabBarItem = UITabBarItem.init(title: "Profile", image: UIImage(systemName: "person"), tag: 0)
         feedCoordinator.navigationController.tabBarItem = UITabBarItem.init(title: "Feed", image: UIImage(systemName: "house"), tag: 1)
         
         feedCoordinator.start()
+        greenCoordinator.start1()
+
     }
     
     private func configLoginController() -> UINavigationController {
@@ -40,5 +46,14 @@ class MainCoordinator {
         let coordinator = FeedCoordinator(navigation: navigationForFeed, factory: factory1)
         return coordinator
     }
-    
+
+    private func confinGreenCoordinator() -> GreenCoordinator {
+
+        let navigationForGreen = UINavigationController()
+
+        let coordinator = GreenCoordinator(navigation: navigationForGreen,
+            factory: factory1
+        )
+        return coordinator
+    }
 }

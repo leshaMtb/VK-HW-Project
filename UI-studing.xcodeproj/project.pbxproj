@@ -31,6 +31,9 @@
 		18948D6A268CEE800056665D /* model.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18A35833268CDADD009DAC8F /* model.swift */; };
 		18948D70268CFB9A0056665D /* RootTabBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18948D6F268CFB9A0056665D /* RootTabBarController.swift */; };
 		18948D76268F8C620056665D /* CustomTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18948D75268F8C620056665D /* CustomTextField.swift */; };
+		18DC9497269CEDD70004B8F6 /* GreenCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18DC9496269CEDD70004B8F6 /* GreenCoordinator.swift */; };
+		18DC949A269CEE060004B8F6 /* GreenViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18DC9499269CEE060004B8F6 /* GreenViewController.swift */; };
+		18DC949D269CEE190004B8F6 /* GreenViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18DC949C269CEE190004B8F6 /* GreenViewModel.swift */; };
 		18E962F72695EDAD00223A3D /* FeedViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18E962F62695EDAD00223A3D /* FeedViewModel.swift */; };
 		18F427BB2670DD6C00B7D3A1 /* Users.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18F427BA2670DD6C00B7D3A1 /* Users.swift */; };
 		18F85AFF265BD85E00F5A6C6 /* StorageService.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 18F85AF8265BD85E00F5A6C6 /* StorageService.framework */; };
@@ -90,6 +93,9 @@
 		18948D6F268CFB9A0056665D /* RootTabBarController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RootTabBarController.swift; sourceTree = "<group>"; };
 		18948D75268F8C620056665D /* CustomTextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomTextField.swift; sourceTree = "<group>"; };
 		18A35833268CDADD009DAC8F /* model.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = model.swift; sourceTree = "<group>"; };
+		18DC9496269CEDD70004B8F6 /* GreenCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GreenCoordinator.swift; sourceTree = "<group>"; };
+		18DC9499269CEE060004B8F6 /* GreenViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GreenViewController.swift; sourceTree = "<group>"; };
+		18DC949C269CEE190004B8F6 /* GreenViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GreenViewModel.swift; sourceTree = "<group>"; };
 		18E962F62695EDAD00223A3D /* FeedViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeedViewModel.swift; sourceTree = "<group>"; };
 		18F427BA2670DD6C00B7D3A1 /* Users.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Users.swift; sourceTree = "<group>"; };
 		18F85AF8265BD85E00F5A6C6 /* StorageService.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = StorageService.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -172,6 +178,15 @@
 			path = Profile;
 			sourceTree = "<group>";
 		};
+		180CA73526A0CBEB004197A8 /* GreenModule */ = {
+			isa = PBXGroup;
+			children = (
+				18DC9499269CEE060004B8F6 /* GreenViewController.swift */,
+				18DC949C269CEE190004B8F6 /* GreenViewModel.swift */,
+			);
+			path = GreenModule;
+			sourceTree = "<group>";
+		};
 		1864674E261F3CE2008EF088 /* Login */ = {
 			isa = PBXGroup;
 			children = (
@@ -196,6 +211,7 @@
 				189130CA2695EBA10004F20A /* ControllerFactory.swift */,
 				189130C72695E8540004F20A /* MainCoordinator.swift */,
 				189130CD2695EBE00004F20A /* FeedCoordinator.swift */,
+				18DC9496269CEDD70004B8F6 /* GreenCoordinator.swift */,
 			);
 			path = "Coordinators&Factory";
 			sourceTree = "<group>";
@@ -231,6 +247,7 @@
 			children = (
 				060782B5250CE27700A87020 /* FeedViewController.swift */,
 				18E962F62695EDAD00223A3D /* FeedViewModel.swift */,
+				180CA73526A0CBEB004197A8 /* GreenModule */,
 			);
 			path = FeedModule;
 			sourceTree = "<group>";
@@ -442,7 +459,9 @@
 				060782B6250CE27700A87020 /* FeedViewController.swift in Sources */,
 				189130CB2695EBA10004F20A /* ControllerFactory.swift in Sources */,
 				060782B2250CE27700A87020 /* AppDelegate.swift in Sources */,
+				18DC949A269CEE060004B8F6 /* GreenViewController.swift in Sources */,
 				189130C82695E8540004F20A /* MainCoordinator.swift in Sources */,
+				18DC9497269CEDD70004B8F6 /* GreenCoordinator.swift in Sources */,
 				060782C6250CEB0A00A87020 /* InfoViewController.swift in Sources */,
 				18948D76268F8C620056665D /* CustomTextField.swift in Sources */,
 				060782B4250CE27700A87020 /* SceneDelegate.swift in Sources */,
@@ -451,6 +470,7 @@
 				18029F07260A9D08007D7F96 /* ProfileViewController.swift in Sources */,
 				18948D6A268CEE800056665D /* model.swift in Sources */,
 				18F427BB2670DD6C00B7D3A1 /* Users.swift in Sources */,
+				18DC949D269CEE190004B8F6 /* GreenViewModel.swift in Sources */,
 				180D8122261602DA0009BA1D /* LogInViewController.swift in Sources */,
 				1864676C2624994D008EF088 /* PhotoCollectionViewCell.swift in Sources */,
 				060782C8250CEE5D00A87020 /* PostViewController.swift in Sources */,

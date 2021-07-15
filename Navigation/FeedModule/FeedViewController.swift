@@ -43,6 +43,15 @@ class FeedViewController: UIViewController {
         return button
     }()
 
+    lazy var buttonForOpenNew: CustomButton = {
+        let button = CustomButton(titleText: "OPEN GREEN", titleColor: .blue, backgroundColor: .systemPink, tapAction: openNewVC)
+        button.setBackgroundImage(#imageLiteral(resourceName: "blue_pixel"), for: .normal)
+        button.setTitleColor(.gray, for: .selected)
+        button.clipsToBounds = true
+        button.layer.cornerRadius = 10
+        return button
+    }()
+
     var label: UILabel = {
         let label = UILabel()
         label.text = "Привет"
@@ -70,13 +79,19 @@ class FeedViewController: UIViewController {
         label.layer.borderColor = viewModel?.color?.cgColor
     }
 
+    func openNewVC() {
+        viewModel?.onTapShowNextModule()
+    }
+
     override func viewDidLoad() {
         super.viewDidLoad()
 
+        navigationController?.navigationBar.isHidden = true
         view.backgroundColor = .black
         view.addSubview(label)
         view.addSubview(textFieldForCheckWord)
         view.addSubview(button)
+        view.addSubview(buttonForOpenNew)
 
         label.snp.makeConstraints { label in
             label.top.equalTo(view).inset(200)
@@ -94,6 +109,13 @@ class FeedViewController: UIViewController {
 
         button.snp.makeConstraints { button in
             button.top.equalTo(view).inset(320)
+            button.height.equalTo(40)
+            button.width.equalTo(200)
+            button.centerX.equalTo(view)
+        }
+
+        buttonForOpenNew.snp.makeConstraints { button in
+            button.top.equalTo(view).inset(380)
             button.height.equalTo(40)
             button.width.equalTo(200)
             button.centerX.equalTo(view)

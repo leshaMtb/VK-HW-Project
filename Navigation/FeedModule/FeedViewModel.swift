@@ -10,24 +10,32 @@ import UIKit
 
 
 protocol FeedViewOutput {
+    
     func check(word: String)
     var color: UIColor? { get set }
+    var onTapShowNextModule: () -> Void { get set }
 }
 
 
 class FeedViewModel: FeedViewOutput {
-
+    
+    var showNext: (() -> Void)?
+    
+    lazy var onTapShowNextModule: () -> Void = {
+        self.showNext?()
+    }
+    
     var publisher: Publisher?
-
+    
     var color: UIColor? = nil
-
+    
     func check(word: String) {
         publisher?.checkWord(word: word)
-
+        
         NotificationCenter.default.addObserver(self, selector: #selector(trueSelector), name: NSNotification.Name(rawValue: "true") , object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(falseSelector), name: NSNotification.Name(rawValue: "false") , object: nil)
     }
-
+    
     @objc func trueSelector() {
         color = .green
     }
