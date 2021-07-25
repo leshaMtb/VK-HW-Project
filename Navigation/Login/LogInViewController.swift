@@ -225,8 +225,8 @@ class Checker {
     
     static let checker = Checker()
 
-    private let loginHash = "Aleksey".hash
-    private let passwordHash = "12345".hash
+    private let loginHash = "123".hash
+    private let passwordHash = "123".hash
 
     func checkLoginPassword(parameter: Int) -> Bool {
         if parameter == loginHash + passwordHash {

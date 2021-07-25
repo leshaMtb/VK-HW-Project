@@ -15,6 +15,8 @@ class PhotoViewController: UIViewController {
 
     private var imageCollection: [UIImage] = []
     var imagePublisherFacade: ImagePublisherFacade?
+//new
+    var processOnThread: ImageProcessor?
 
 
     lazy var collectionView = UICollectionView(frame: .zero, collectionViewLayout: UICollectionViewFlowLayout())
@@ -35,6 +37,10 @@ class PhotoViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+
+
+
+
         
         collectionView.showsVerticalScrollIndicator = false
         collectionView.translatesAutoresizingMaskIntoConstraints = false

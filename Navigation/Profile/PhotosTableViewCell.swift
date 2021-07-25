@@ -8,9 +8,12 @@
 
 import UIKit
 import StorageService
+import iOSIntPackage
 
 class PhotosTableViewCell: UITableViewCell {
-    
+
+    let processOnThread = ImageProcessor()
+
     private let defaultInset: CGFloat = 12
     private let miniInset: CGFloat = 8
     
@@ -95,13 +98,19 @@ extension PhotosTableViewCell: UICollectionViewDataSource {
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: String(describing: PhotoCollectionViewCell.self), for: indexPath) as! PhotoCollectionViewCell
-        
-        let photo = Storage.photoCollection[indexPath.row]
-        
-        cell.photo.image = photo
-        
+        //время выполнения наложения фильтра с момента нажатия логин кнопки с разными приоритетами
+        //qos: .default - 7.34
+        //qos: .background - 7.35
+        //qos: .userInitiated - 7.34
+        //qos: .userInteractive - 7.36
+        //qos: .utility - 7.35
+        //- разницы нет
+        processOnThread.processImagesOnThread(sourceImages: Storage.photoCollection, filter: .fade, qos: .default, completion: { (myNewArray) in
+            DispatchQueue.main.async {
+                cell.photo.image = UIImage(cgImage: myNewArray[indexPath.row]!)
+            }
+        })
         cell.layer.cornerRadius = 6
-        
         return cell
     }
     
