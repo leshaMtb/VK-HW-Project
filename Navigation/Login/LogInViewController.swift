@@ -19,6 +19,8 @@ class LogInViewController: UIViewController {
 
     weak var delegate1: LoginViewControllerDelegate?
 
+    let bruteForce = BruteForce()
+
     private let scrollView: UIScrollView = {
         let scrollView = UIScrollView()
         scrollView.translatesAutoresizingMaskIntoConstraints = false
@@ -86,6 +88,35 @@ class LogInViewController: UIViewController {
 
         return logInButton
     }()
+
+    let label: UILabel = {
+        let label = UILabel()
+        label.textColor = .lightGray
+        label.font = UIFont.systemFont(ofSize: 14)
+        label.text = "Или подобрать через BrutForce:"
+        label.textAlignment = .center
+        label.translatesAutoresizingMaskIntoConstraints = false
+        return label
+
+    }()
+
+    private lazy var bruteForceButton: CustomButton = {
+        let bruteForceButton = CustomButton(titleText: "Brute Force", titleColor: .white, backgroundColor: .systemGreen, tapAction: bruteForceFunc)
+        bruteForceButton.setTitleColor(.gray, for: .highlighted)
+        bruteForceButton.clipsToBounds = true
+        bruteForceButton.layer.cornerRadius = 10
+        return bruteForceButton
+    }()
+
+    private let activitiIndicator: UIActivityIndicatorView = {
+        let indicator = UIActivityIndicatorView()
+        indicator.hidesWhenStopped = true
+        indicator.style = .large
+        indicator.translatesAutoresizingMaskIntoConstraints = false
+        return indicator
+    }()
+
+
     // MARK: Keyboard notifications это скопированный блок кода
 
     //---------------------------------------------------------------------------------
@@ -119,7 +150,6 @@ class LogInViewController: UIViewController {
     override func viewDidLoad() {
         super .viewDidLoad()
 
-
         self.navigationController?.navigationBar.isHidden = true
         self.view.backgroundColor = .white
 
@@ -131,6 +161,9 @@ class LogInViewController: UIViewController {
         viewOnScroll.addSubview(emailTextField)
         viewOnScroll.addSubview(passwordTextField)
         viewOnScroll.addSubview(logInButton)
+        viewOnScroll.addSubview(label)
+        viewOnScroll.addSubview(bruteForceButton)
+        viewOnScroll.addSubview(activitiIndicator)
 
         let defaultInset = 16
 
@@ -175,11 +208,42 @@ class LogInViewController: UIViewController {
             logInButton.heightAnchor.constraint(equalToConstant: CGFloat(50)),
             logInButton.leftAnchor.constraint(equalTo: viewOnScroll.leftAnchor, constant: CGFloat(defaultInset)),
             logInButton.rightAnchor.constraint(equalTo: viewOnScroll.rightAnchor, constant: CGFloat(-defaultInset)),
-            logInButton.bottomAnchor.constraint(equalTo: viewOnScroll.bottomAnchor)
+            logInButton.heightAnchor.constraint(equalToConstant: 50),
+
+            label.topAnchor.constraint(equalTo: logInButton.bottomAnchor, constant: 10),
+            label.centerXAnchor.constraint(equalTo: viewOnScroll.centerXAnchor),
+            label.heightAnchor.constraint(equalToConstant: 20),
+
+            bruteForceButton.topAnchor.constraint(equalTo: label.bottomAnchor, constant: 8),
+            bruteForceButton.widthAnchor.constraint(equalToConstant: 120),
+            bruteForceButton.centerXAnchor.constraint(equalTo: viewOnScroll.centerXAnchor),
+            bruteForceButton.heightAnchor.constraint(equalToConstant: 40),
+            bruteForceButton.bottomAnchor.constraint(equalTo: viewOnScroll.bottomAnchor),
+
+
+            activitiIndicator.topAnchor.constraint(equalTo: imageView.bottomAnchor, constant: 10),
+            activitiIndicator.heightAnchor.constraint(equalToConstant: 100),
+            activitiIndicator.widthAnchor.constraint(equalToConstant: 100),
+            activitiIndicator.centerXAnchor.constraint(equalTo: viewOnScroll.centerXAnchor),
         ])
     }
 
-   private func showProfileViewController() {
+    private func bruteForceFunc() {
+
+        let globalQueue = DispatchQueue.global(qos: .utility)
+
+        activitiIndicator.startAnimating()
+        globalQueue.async {
+            let forcedPassword = self.bruteForce.bruteForce(passwordToUnlock: String(Checker.checker.password))
+            DispatchQueue.main.async { [self] in
+                passwordTextField.text = forcedPassword
+                passwordTextField.isSecureTextEntry = false
+                activitiIndicator.stopAnimating()
+            }
+        }
+    }
+
+    private func showProfileViewController() {
 
         print("ДАННЫЕ ВВЕДЕНЫ ПРАВИЛЬНО?")
         print(self.delegate1?.check(parameter: emailTextField.text!.hash + passwordTextField.text!.hash) as Any)
@@ -207,15 +271,15 @@ class LogInViewController: UIViewController {
             passwordTextField.endEditing(true)
 
             let alertController = UIAlertController(title: "Неверный логин или пароль", message: "Побробуйте ещё раз", preferredStyle: .alert)
-                       let okAction = UIAlertAction(title: "ОК", style: .default) { _ in
-                           print("Pressed Ok button on alert on login")
+            let okAction = UIAlertAction(title: "ОК", style: .default) { _ in
+                print("Pressed Ok button on alert on login")
 
-                        self.emailTextField.endEditing(true)
-                       self.passwordTextField.endEditing(true)
+                self.emailTextField.endEditing(true)
+                self.passwordTextField.endEditing(true)
 
-                       }
-                       alertController.addAction(okAction)
-                       self.present(alertController, animated: true, completion: nil)
+            }
+            alertController.addAction(okAction)
+            self.present(alertController, animated: true, completion: nil)
         }
     }
 }
@@ -225,10 +289,17 @@ class Checker {
     
     static let checker = Checker()
 
-    private let loginHash = "123".hash
-    private let passwordHash = "123".hash
+
+    let login = "Aleksey"
+    let password = "1223"
+
+
 
     func checkLoginPassword(parameter: Int) -> Bool {
+
+        let loginHash = login.hash
+        let passwordHash = password.hash
+
         if parameter == loginHash + passwordHash {
             print("Чекер: все ок")
             return true
@@ -240,10 +311,10 @@ class Checker {
 }
 
 
-
 protocol LoginViewControllerDelegate: class {
-    func check(parameter: Int )-> Bool
+    func check(parameter: Int ) -> Bool
 }
+
 
 class LoginInspector: LoginViewControllerDelegate {
     func check(parameter: Int) -> Bool {

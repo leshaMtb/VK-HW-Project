@@ -14,7 +14,7 @@ class ProfileHeaderViewNew: UITableViewHeaderFooterView {
     var profileHeaderView: UIView! = {
         let headerView = UIView()
         #if DEBUG
-        headerView.backgroundColor = .systemPink
+        headerView.backgroundColor = .init(white: 0.85, alpha: 1.0)
         #else
         headerView.backgroundColor = .init(white: 0.95, alpha: 1.0)
         #endif
