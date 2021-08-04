@@ -19,8 +19,10 @@ class ProfileViewController: UIViewController {
     var collection: [UIImage] = []
 
     let userService: UserService
-   
+
     let user: String
+
+    var timer = Timer()
 
     init(userService: UserService, user: String) {
         self.userService = userService
@@ -126,9 +128,24 @@ class ProfileViewController: UIViewController {
         navigationController?.navigationBar.isHidden = true
     }
 
+
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        timer = Timer.scheduledTimer(timeInterval: 10, target: self, selector: #selector(timerFunc), userInfo: nil, repeats: false)
+    }
+
+    @objc func timerFunc() {
+        let alertController = UIAlertController(title: "Берегите зрение!", message: "Сократите время пребывания в социальных сетях", preferredStyle: .alert)
+        let okAction = UIAlertAction(title: "Ок", style: .default) { _ in
+               print("ok-button pressed(profile VC)")
+        }
+        alertController.addAction(okAction)
+        self.present(alertController, animated: true, completion: nil)
+    }
+
+
     override func viewDidLoad() {
         super.viewDidLoad()
-
 
         view.backgroundColor = .white
         self.header.addSubview(self.backgroundView1)
