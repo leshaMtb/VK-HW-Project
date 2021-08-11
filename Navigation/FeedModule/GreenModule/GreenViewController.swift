@@ -47,6 +47,10 @@ class GreenViewController: UIViewController {
             button.centerXAnchor.constraint(equalTo: view.centerXAnchor),
             button.centerYAnchor.constraint(equalTo: view.centerYAnchor),
         ])
+
+        let networkTask = NetworkService()
+        networkTask.getData()
+        
     }
 }
 
