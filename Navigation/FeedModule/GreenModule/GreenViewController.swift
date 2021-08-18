@@ -20,7 +20,19 @@ class GreenViewController: UIViewController {
         button.setTitleColor(.gray, for: .selected)
         return button
     }()
-    
+
+    let label: UILabel = {
+        let label = UILabel()
+        label.backgroundColor = .black
+        label.textColor = .white
+        label.textAlignment = .center
+        label.layer.cornerRadius = 10
+        label.clipsToBounds = true
+        label.text = ""
+        label.translatesAutoresizingMaskIntoConstraints = false
+        return label
+    }()
+
     let viewModel: GreenViewOutout
     
     init(viewModel: GreenViewOutout) {
@@ -38,14 +50,27 @@ class GreenViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        viewModel.getLabelText { (str) in
+            DispatchQueue.main.async {
+                self.label.text = str
+            }
+        }
+
         navigationController?.navigationBar.isHidden = true
         view.backgroundColor = .green
         view.addSubview(button)
+        view.addSubview(label)
         NSLayoutConstraint.activate([
             button.widthAnchor.constraint(equalToConstant: 200),
             button.heightAnchor.constraint(equalToConstant: 50),
             button.centerXAnchor.constraint(equalTo: view.centerXAnchor),
             button.centerYAnchor.constraint(equalTo: view.centerYAnchor),
+
+            label.topAnchor.constraint(equalTo: view.topAnchor, constant: 100),
+            label.centerXAnchor.constraint(equalTo: view.centerXAnchor),
+            label.widthAnchor.constraint(equalToConstant: 200),
+            label.heightAnchor.constraint(equalToConstant: 50),
         ])
     }
 }
