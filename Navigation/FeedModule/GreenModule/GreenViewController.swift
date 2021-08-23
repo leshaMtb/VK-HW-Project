@@ -23,7 +23,19 @@ class GreenViewController: UIViewController {
 
     let label: UILabel = {
         let label = UILabel()
-        label.backgroundColor = .black
+        label.backgroundColor = .systemGray4
+        label.textColor = .white
+        label.textAlignment = .center
+        label.layer.cornerRadius = 10
+        label.clipsToBounds = true
+        label.text = ""
+        label.translatesAutoresizingMaskIntoConstraints = false
+        return label
+    }()
+
+    let secondLabel: UILabel = {
+        let label = UILabel()
+        label.backgroundColor = .systemGray4
         label.textColor = .white
         label.textAlignment = .center
         label.layer.cornerRadius = 10
@@ -51,9 +63,14 @@ class GreenViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        viewModel.getLabelText { (str) in
+        viewModel.getLabelTextJSONSerialization { (str) in
             DispatchQueue.main.async {
                 self.label.text = str
+            }
+        }
+        viewModel.getLabelTextJSONDecoder { (str) in
+            DispatchQueue.main.async {
+                self.secondLabel.text = str
             }
         }
 
@@ -61,6 +78,8 @@ class GreenViewController: UIViewController {
         view.backgroundColor = .green
         view.addSubview(button)
         view.addSubview(label)
+        view.addSubview(secondLabel)
+        
         NSLayoutConstraint.activate([
             button.widthAnchor.constraint(equalToConstant: 200),
             button.heightAnchor.constraint(equalToConstant: 50),
@@ -71,6 +90,11 @@ class GreenViewController: UIViewController {
             label.centerXAnchor.constraint(equalTo: view.centerXAnchor),
             label.widthAnchor.constraint(equalToConstant: 200),
             label.heightAnchor.constraint(equalToConstant: 50),
+
+            secondLabel.topAnchor.constraint(equalTo: view.topAnchor, constant: 160),
+            secondLabel.centerXAnchor.constraint(equalTo: view.centerXAnchor),
+            secondLabel.widthAnchor.constraint(equalToConstant: 200),
+            secondLabel.heightAnchor.constraint(equalToConstant: 50),
         ])
     }
 }
